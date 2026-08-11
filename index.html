@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora IBS/CBS — Dentro ou Fora do DAS? | Simples Nacional</title>
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary: #0f172a;
+      --primary-light: #1e293b;
+      --accent: #2563eb;
+      --accent-hover: #1d4ed8;
+      --emerald: #059669;
+      --emerald-bg: #ecfdf5;
+      --amber: #d97706;
+      --amber-bg: #fffbeb;
+      --slate-50: #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-900: #0f172a;
+      --card-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background-color: var(--slate-50);
+      color: var(--slate-900);
+      line-height: 1.6;
+      padding-bottom: 60px;
+    }
+
+    /* Top Navigation Bar */
+    header {
+      background: var(--primary);
+      color: #fff;
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .logo i {
+      color: #38bdf8;
+      font-size: 1.4rem;
+    }
+
+    .badge-legal {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: #cbd5e1;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      color: #fff;
+      padding: 3rem 1.5rem 4rem;
+      text-align: center;
+    }
+
+    .hero-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: #94a3b8;
+      margin-bottom: 1.5rem;
+    }
+
+    .legal-alert {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(217, 119, 6, 0.15);
+      border: 1px solid rgba(217, 119, 6, 0.4);
+      color: #fcd34d;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 500;
+    }
+
+    /* Layout Wrapper */
+    .main-wrapper {
+      max-width: 1200px;
+      margin: -2.5rem auto 0;
+      padding: 0 1.5rem;
+    }
+
+    /* Calculator Grid */
+    .calc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    @media (max-width: 960px) {
+      .calc-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--card-shadow);
+      padding: 2rem;
+      border: 1px solid var(--slate-200);
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 2px solid var(--slate-100);
+      padding-bottom: 0.75rem;
+    }
+
+    .card-title i {
+      color: var(--accent);
+    }
+
+    /* Form Fields */
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--slate-700);
+      margin-bottom: 0.4rem;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--slate-200);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      color: var(--slate-900);
+      background-color: #fff;
+      transition: all 0.2s;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    .input-group {
+      position: relative;
+    }
+
+    .input-prefix {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--slate-600);
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .input-group .form-control {
+      padding-left: 2.75rem;
+    }
+
+    .range-wrap {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .range-wrap input[type="range"] {
+      flex: 1;
+      accent-color: var(--accent);
+    }
+
+    .range-val {
+      min-width: 50px;
+      text-align: right;
+      font-weight: 600;
+      color: var(--accent);
+      font-size: 0.95rem;
+    }
+
+    .accordion-toggle {
+      background: var(--slate-100);
+      border: none;
+      width: 100%;
+      text-align: left;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: var(--slate-700);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1rem;
+    }
+
+    .accordion-content {
+      display: none;
+      padding: 1rem 0 0;
+    }
+
+    .accordion-content.active {
+      display: block;
+    }
+
+    /* Results Card */
+    .verdict-box {
+      border-radius: 10px;
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .verdict-box.das {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      color: #1e40af;
+    }
+
+    .verdict-box.hibrido {
+      background: var(--emerald-bg);
+      border: 1px solid #a7f3d0;
+      color: #065f46;
+    }
+
+    .verdict-box.apertado {
+      background: var(--amber-bg);
+      border: 1px solid #fde68a;
+      color: #92400e;
+    }
+
+    .verdict-badge {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-bottom: 6px;
+      background: rgba(255,255,255,0.6);
+    }
+
+    .verdict-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1.5rem;
+    }
+
+    .comparison-table th, .comparison-table td {
+      padding: 0.85rem;
+      text-align: left;
+      border-bottom: 1px solid var(--slate-200);
+      font-size: 0.9rem;
+    }
+
+    .comparison-table th {
+      background-color: var(--slate-50);
+      color: var(--slate-600);
+      font-weight: 600;
+    }
+
+    .metric-val {
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .text-emerald { color: var(--emerald); }
+    .text-accent { color: var(--accent); }
+    .text-amber { color: var(--amber); }
+
+    /* Info Section */
+    .info-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .info-card {
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--slate-200);
+    }
+
+    .info-card h3 {
+      font-size: 1.1rem;
+      color: var(--primary);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .faq-item {
+      background: #fff;
+      border: 1px solid var(--slate-200);
+      border-radius: 8px;
+      margin-bottom: 0.75rem;
+      overflow: hidden;
+    }
+
+    .faq-q {
+      padding: 1rem;
+      font-weight: 600;
+      color: var(--primary);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .faq-a {
+      padding: 0 1rem 1rem;
+      color: var(--slate-600);
+      font-size: 0.9rem;
+      display: none;
+    }
+
+    .faq-item.active .faq-a {
+      display: block;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: var(--slate-600);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--slate-200);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <header>
+    <div class="nav-container">
+      <a href="#" class="logo">
+        <i class="fa-solid fa-calculator"></i>
+        <span>TaxReform | IBSCBS-SimplesNacional</span>
+      </a>
+      <span class="badge-legal">Resolução CGSN 186/2026 & LC 214/2025</span>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-container">
+      <h1>IBS e CBS dentro ou fora do DAS?</h1>
+      <p>Simulador de Decisão Estratégica para Empresas do Simples Nacional frente à Reforma Tributária</p>
+      <div class="legal-alert">
+        <i class="fa-solid fa-calendar-check"></i>
+        <span>Janela de Opção do CGSN: <strong>01 a 30 de Setembro de 2026</strong> (Efeito no 1º Semestre de 2027)</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <div class="main-wrapper">
+    <div class="calc-grid">
+      
+      <!-- Input Card -->
+      <div class="card">
+        <h2 class="card-title">
+          <i class="fa-solid fa-sliders"></i>
+          Perfil do Cliente do Simples
+        </h2>
+
+        <!-- Atividade / Anexo -->
+        <div class="form-group">
+          <label class="form-label" for="anexo">Atividade / Anexo do Simples</label>
+          <select id="anexo" class="form-control" onchange="calculate()">
+            <option value="anexo1">Comércio (Anexo I) — Alíquota Efetiva Base 4% a 19%</option>
+            <option value="anexo2">Indústria (Anexo II) — Alíquota Efetiva Base 4.5% a 30%</option>
+            <option value="anexo3">Serviços Gerais (Anexo III) — Sujeito ao Fator R</option>
+            <option value="anexo4">Serviços Específicos (Anexo IV) — Construção, Advocacia, Limpeza</option>
+          </select>
+        </div>
+
+        <!-- Receita Bruta Mensal -->
+        <div class="form-group">
+          <label class="form-label" for="receita">Receita Bruta Mensal Típica</label>
+          <div class="input-group">
+            <span class="input-prefix">R$</span>
+            <input type="number" id="receita" class="form-control" value="100000" step="5000" oninput="calculate()">
+          </div>
+        </div>
+
+        <!-- Vendas B2B -->
+        <div class="form-group">
+          <label class="form-label">
+            Vendas para PJ do Regime Regular (B2B)
+            <i class="fa-solid fa-circle-info" title="Clientes no Lucro Real ou Presumido que usam crédito tributário"></i>
+          </label>
+          <div class="range-wrap">
+            <input type="range" id="vendasB2B" min="0" max="100" value="60" oninput="calculate()">
+            <span class="range-val" id="vendasB2BVal">60%</span>
+          </div>
+        </div>
+
+        <!-- Compras com Crédito -->
+        <div class="form-group">
+          <label class="form-label">
+            Compras de Fornecedores Fora do Simples
+            <i class="fa-solid fa-circle-info" title="Insumos e mercadorias adquiridas de empresas do Lucro Real/Presumido que geram crédito no regime híbrido"></i>
+          </label>
+          <div class="range-wrap">
+            <input type="range" id="comprasCredito" min="0" max="100" value="40" oninput="calculate()">
+            <span class="range-val" id="comprasCreditoVal">40%</span>
+          </div>
+        </div>
+
+        <!-- Folha de Pagamento -->
+        <div class="form-group">
+          <label class="form-label">Folha de Pagamento com Encargos (% da Receita)</label>
+          <div class="range-wrap">
+            <input type="range" id="folha" min="0" max="100" value="20" oninput="calculate()">
+            <span class="range-val" id="folhaVal">20%</span>
+          </div>
+        </div>
+
+        <!-- Premissas Ajustáveis Toggle -->
+        <button class="accordion-toggle" onclick="togglePremissas()">
+          <span><i class="fa-solid fa-gear"></i> Premissas de Transição de 2027</span>
+          <i class="fa-solid fa-chevron-down" id="premissasIcon"></i>
+        </button>
+
+        <div class="accordion-content" id="premissasContent">
+          <div class="form-group" style="margin-top:0.5rem;">
+            <label class="form-label">Alíquota de Referência IVA (IBS + CBS em 2027)</label>
+            <div class="range-wrap">
+              <input type="range" id="aliqIVA" min="5" max="12" step="0.1" value="8.8" oninput="calculate()">
+              <span class="range-val" id="aliqIVAVal">8.8%</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Fração do DAS referente a IBS/CBS</label>
+            <div class="range-wrap">
+              <input type="range" id="fracaoDAS" min="10" max="50" step="1" value="33" oninput="calculate()">
+              <span class="range-val" id="fracaoDASVal">33%</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Results Card -->
+      <div class="card">
+        <h2 class="card-title">
+          <i class="fa-solid fa-chart-pie"></i>
+          Diagnóstico e Comparativo Tributário
+        </h2>
+
+        <!-- Verdict Banner -->
+        <div class="verdict-box" id="verdictBox">
+          <span class="verdict-badge" id="verdictBadge">Carregando...</span>
+          <div class="verdict-title" id="verdictTitle">Analisando Perfil...</div>
+          <p id="verdictDesc" style="font-size:0.88rem; margin-top:4px;"></p>
+        </div>
+
+        <!-- Comparison Table -->
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Métrica (Mensal)</th>
+              <th>Dentro do DAS</th>
+              <th>Modelo Híbrido</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Guia do DAS Efetiva</td>
+              <td id="dasNormalVal">R$ 0,00</td>
+              <td id="dasReduzidoVal">R$ 0,00</td>
+            </tr>
+            <tr>
+              <td>IBS/CBS Líquido (Por fora)</td>
+              <td>R$ 0,00</td>
+              <td id="ibsCbsLiquidoVal">R$ 0,00</td>
+            </tr>
+            <tr>
+              <td><strong>Custo Tributário Próprio</strong></td>
+              <td><strong id="custoDASVal">R$ 0,00</strong></td>
+              <td><strong id="custoHibridoVal">R$ 0,00</strong></td>
+            </tr>
+            <tr>
+              <td>
+                Crédito Transferido aos Clientes PJ
+                <i class="fa-solid fa-circle-question" title="Diferencial competitivo nas vendas B2B"></i>
+              </td>
+              <td id="creditoDASVal" class="text-amber">R$ 0,00</td>
+              <td id="creditoHibridoVal" class="text-emerald">R$ 0,00</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Key Insight Card -->
+        <div style="background: var(--slate-50); padding: 1rem; border-radius: 8px; border-left: 4px solid var(--accent);">
+          <h4 style="font-size: 0.9rem; color: var(--primary); margin-bottom: 4px;">
+            <i class="fa-solid fa-lightbulb"></i> Fator Estímulo B2B
+          </h4>
+          <p id="insightText" style="font-size: 0.85rem; color: var(--slate-600);">
+            No Modelo Híbrido, seus clientes PJ tomam 100% de crédito de IBS/CBS sobre suas compras.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Context & FAQ Sections -->
+    <div class="info-section">
+      
+      <div class="info-card">
+        <h3><i class="fa-solid fa-balance-scale text-accent"></i> Regras da Resolução CGSN 186/2026</h3>
+        <p style="font-size: 0.9rem; color: var(--slate-600); margin-bottom: 0.75rem;">
+          A Resolução regulamenta a opção de recolhimento de IBS/CBS fora do DAS para 2027:
+        </p>
+        <ul style="font-size: 0.88rem; color: var(--slate-600); padding-left: 1.2rem; line-height: 1.7;">
+          <li><strong>Janela Inflexível:</strong> Opção realizada exclusivamente de 1º a 30 de setembro de 2026.</li>
+          <li><strong>Cancelamento:</strong> Permitido até 30 de novembro de 2026.</li>
+          <li><strong>Padrão Automático:</strong> A empresa que não manifestar opção permanece 100% dentro do DAS.</li>
+          <li><strong>Vigência:</strong> Válido para o 1º semestre do ano-calendário de 2027.</li>
+        </ul>
+      </div>
+
+      <div class="info-card">
+        <h3><i class="fa-solid fa-diagram-project text-emerald"></i> Como Funciona o Modelo Híbrido</h3>
+        <p style="font-size: 0.9rem; color: var(--slate-600); margin-bottom: 0.75rem;">
+          No modelo híbrido, a apuração é fracionada em duas etapas:
+        </p>
+        <ul style="font-size: 0.88rem; color: var(--slate-600); padding-left: 1.2rem; line-height: 1.7;">
+          <li><strong>DAS Reduzido:</strong> Mantém tributos federais (IRPJ, CSLL, CPP) e estaduais/municipais não substituídos.</li>
+          <li><strong>Débito/Crédito do IVA Dual:</strong> IBS e CBS calculados sobre as vendas menos créditos das compras.</li>
+          <li><strong>Crédito Integral:</strong> Vendas B2B transferem crédito cheio aos compradores.</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- FAQ Accordion -->
+    <div class="card" style="margin-bottom: 2rem;">
+      <h2 class="card-title">
+        <i class="fa-solid fa-circle-question"></i>
+        Perguntas Frequentes (FAQ)
+      </h2>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">
+          <span>O MEI pode optar pelo recolhimento do IBS/CBS por fora do DAS?</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-a">
+          Não. O Microempreendedor Individual (MEI) está excluído dessa opção e permanece no regime simplificado de recolhimento fixo.
+        </div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">
+          <span>Qual perfil se beneficia diretamente do Modelo Híbrido?</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-a">
+          Empresas predominantemente B2B (que vendem para PJ do regime regular), com alto volume de compras tributadas (que geram crédito nas entradas) e cujos produtos não possuem reduções de alíquota específicas.
+        </div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">
+          <span>Quem vende predominantemente para consumidor final (B2C) deve mudar?</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-a">
+          Em geral não. Como o consumidor final pessoa física não toma crédito tributário, sair do DAS gera apenas maior complexidade operacional e maior custo relativo sem ganho competitivo.
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <footer>
+    <p>Simulador IBS/CBS — Simples Nacional | Desenvolvido para publicação em GitHub Pages</p>
+    <p style="margin-top: 4px; color: var(--slate-600);">Repositório: <strong>silvioalbqrq/IBSCBS-SimplesNacional</strong></p>
+  </footer>
+
+  <!-- Script de Cálculo e Interatividade -->
+  <script>
+    function togglePremissas() {
+      const content = document.getElementById('premissasContent');
+      const icon = document.getElementById('premissasIcon');
+      if (content.classList.contains('active')) {
+        content.classList.remove('active');
+        icon.className = 'fa-solid fa-chevron-down';
+      } else {
+        content.classList.add('active');
+        icon.className = 'fa-solid fa-chevron-up';
+      }
+    }
+
+    function toggleFaq(element) {
+      element.classList.toggle('active');
+    }
+
+    function formatBRL(val) {
+      return val.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    }
+
+    function calculate() {
+      // 1. Obter Valores dos Formulários
+      const anexo = document.getElementById('anexo').value;
+      const receita = parseFloat(document.getElementById('receita').value) || 0;
+      const pctB2B = parseFloat(document.getElementById('vendasB2B').value) / 100;
+      const pctCompras = parseFloat(document.getElementById('comprasCredito').value) / 100;
+      const pctFolha = parseFloat(document.getElementById('folha').value) / 100;
+      const aliqIVA = parseFloat(document.getElementById('aliqIVA').value) / 100;
+      const fracaoDAS = parseFloat(document.getElementById('fracaoDAS').value) / 100;
+
+      // Atualizar Labels dos Sliders
+      document.getElementById('vendasB2BVal').innerText = (pctB2B * 100) + '%';
+      document.getElementById('comprasCreditoVal').innerText = (pctCompras * 100) + '%';
+      document.getElementById('folhaVal').innerText = (pctFolha * 100) + '%';
+      document.getElementById('aliqIVAVal').innerText = (aliqIVA * 100).toFixed(1) + '%';
+      document.getElementById('fracaoDASVal').innerText = (fracaoDAS * 100) + '%';
+
+      // 2. Alíquotas Médias Efetivas do DAS por Anexo
+      let aliqDAS = 0.08; // Padrão
+      if (anexo === 'anexo1') aliqDAS = 0.07;
+      else if (anexo === 'anexo2') aliqDAS = 0.085;
+      else if (anexo === 'anexo3') aliqDAS = (pctFolha >= 0.28) ? 0.09 : 0.15;
+      else if (anexo === 'anexo4') aliqDAS = 0.095;
+
+      // 3. Cenário 1: Dentro do DAS
+      const dasNormal = receita * aliqDAS;
+      const custoProprioDAS = dasNormal;
+      // Crédito transferido no DAS (limitado à fração do IBS/CBS na parcela)
+      const creditoDAS = receita * pctB2B * (aliqDAS * fracaoDAS);
+
+      // 4. Cenário 2: Modelo Híbrido (Por fora)
+      const dasReduzido = dasNormal * (1 - fracaoDAS);
+      const debitoIBSCBS = receita * aliqIVA;
+      const creditoInsumos = (receita * pctCompras) * aliqIVA;
+      const ibsCbsLiquido = Math.max(0, debitoIBSCBS - creditoInsumos);
+      const custoProprioHibrido = dasReduzido + ibsCbsLiquido;
+      // Crédito transferido no Híbrido (Integral)
+      const creditoHibrido = receita * pctB2B * aliqIVA;
+
+      // 5. Atualização da Tabela no DOM
+      document.getElementById('dasNormalVal').innerText = formatBRL(dasNormal);
+      document.getElementById('dasReduzidoVal').innerText = formatBRL(dasReduzido);
+      document.getElementById('ibsCbsLiquidoVal').innerText = formatBRL(ibsCbsLiquido);
+      document.getElementById('custoDASVal').innerText = formatBRL(custoProprioDAS);
+      document.getElementById('custoHibridoVal').innerText = formatBRL(custoProprioHibrido);
+      document.getElementById('creditoDASVal').innerText = formatBRL(creditoDAS);
+      document.getElementById('creditoHibridoVal').innerText = formatBRL(creditoHibrido);
+
+      // 6. Lógica do Veredito
+      const deltaCreditoTransferido = creditoHibrido - creditoDAS;
+      const deltaCustoProprio = custoProprioHibrido - custoProprioDAS;
+
+      const verdictBox = document.getElementById('verdictBox');
+      const verdictBadge = document.getElementById('verdictBadge');
+      const verdictTitle = document.getElementById('verdictTitle');
+      const verdictDesc = document.getElementById('verdictDesc');
+      const insightText = document.getElementById('insightText');
+
+      if (pctB2B >= 0.45 && (deltaCreditoTransferido > deltaCustoProprio)) {
+        verdictBox.className = 'verdict-box hibrido';
+        verdictBadge.innerText = 'Recomendação';
+        verdictTitle.innerText = 'Pende para o Modelo Híbrido (Por Fora)';
+        verdictDesc.innerText = `O ganho competitivo na transferência de crédito B2B (${formatBRL(deltaCreditoTransferido)}) compensa a migração tributária.`;
+        insightText.innerText = `Ao migrar para o modelo híbrido, seus clientes PJ receberão ${formatBRL(creditoHibrido - creditoDAS)} a mais em créditos por mês, fortalecendo sua posição de vendas B2B.`;
+      } else if (Math.abs(deltaCreditoTransferido - deltaCustoProprio) < (receita * 0.015)) {
+        verdictBox.className = 'verdict-box apertado';
+        verdictBadge.innerText = 'Atenção';
+        verdictTitle.innerText = 'Decisão Apertada (Exige Análise NCM)';
+        verdictDesc.innerText = 'Os cenários estão muito próximos. A análise detalhada das NCMs e dos XMLs definirá a melhor escolha.';
+        insightText.innerText = 'Como a margem é pequena, pequenas variações na classificação dos insumos (NCM) podem alterar o veredito.';
+      } else {
+        verdictBox.className = 'verdict-box das';
+        verdictBadge.innerText = 'Recomendação';
+        verdictTitle.innerText = 'Pende para Manter no DAS';
+        verdictDesc.innerText = 'Permanecer no DAS oferece menor custo tributário e menor complexidade operacional para este perfil.';
+        insightText.innerText = 'Com volume B2C predominante ou baixo aproveitamento de créditos nas entradas, a simplificação do DAS continua sendo a melhor opção.';
+      }
+    }
+
+    // Inicializar cálculo na carga da página
+    document.addEventListener('DOMContentLoaded', calculate);
+  </script>
+</body>
+</html>
