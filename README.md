@@ -1,58 +1,66 @@
-# Calculadora IBS/CBS — Dentro ou Fora do DAS? | Simples Nacional
+# TaxReform | Calculadora IBS/CBS — Simples Nacional Pro
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![GitHub Pages](https://img.shields.io/badge/status-active-brightgreen.svg)](https://silvioalbqrq.github.io/IBSCBS-SimplesNacional/)
-[![Resolução CGSN](https://img.shields.io/badge/CGSN-186%2F2026-0f172a.svg)](https://www.in.gov.br/)
-[![Base Legal LC 214/2025](https://img.shields.io/badge/LC-214%2F2025-2563eb.svg)](https://www.planalto.gov.br/)
-
-Aplicação web interativa para simulação e tomada de decisão estratégica em relação à opção de recolhimento dos novos tributos sobre consumo (**IBS** — Imposto sobre Bens e Serviços e **CBS** — Contribuição sobre Bens e Serviços) por empresas optantes pelo **Simples Nacional**, no contexto da Reforma Tributária brasileira.
+Simulador técnico e estratégico para tomada de decisão no Simples Nacional frente à Reforma Tributária sobre o Consumo (**Emenda Constitucional nº 132/2023**, **Lei Complementar nº 123/2006**, **PLP 68/2024** e **Resolução CGSN nº 186/2026**).
 
 ---
 
-## 💡 Sobre o Projeto
+## 🎯 Principais Funcionalidades
 
-Com a regulamentação da Reforma Tributária (Lei Complementar nº 214/2025 e Resolução CGSN nº 186/2026), entre **1º e 30 de setembro de 2026**, as empresas optantes pelo Simples Nacional devem tomar uma decisão crucial para o primeiro semestre de 2027:
+1. **Alíquota da CBS (Federal) Totalmente Editável**:
+   - Como a alíquota final da CBS ainda depende de fixação pelo Senado Federal e Comitê Gestor, a calculadora possui um módulo dedicado onde o usuário pode **digitar qualquer alíquota** (ex: `7.0%`, `8.5%`, `8.8%`, `9.5%`, etc.) ou usar o slider interativo.
+   - Botões de presets rápidos (`7.5% Mínimo`, `8.8% Estimativa Oficial Fazenda`, `9.5% Conservador`).
+   - Alíquota do IBS (Subnacional) também ajustável, com exibição instantânea do **IVA Total (CBS + IBS)**.
 
-1. **Manter IBS e CBS dentro do DAS:** Mantém a apuração unificada no regime simplificado.
-2. **Optar pelo Modelo Híbrido (Recolher por Fora):** Mantém tributos federais/locais não substituídos no DAS e apura IBS/CBS no regime regular de débito e crédito.
+2. **Cálculo Oficial da LC 123/2006 por RBT12**:
+   - Eliminação de alíquotas estáticas fixas.
+   - Tabelas completas dos **Anexos I, II, III, IV e V** com alíquotas nominais e parcelas a deduzir oficiais.
+   - Aplicação da fórmula legal da alíquota efetiva:  
+     $$\text{Alíquota Efetiva} = \frac{(\text{RBT12} \times \text{Alíquota Nominal}) - \text{Parcela a Deduzir}}{\text{RBT12}}$$
+   - Partição exata dos tributos substituídos (PIS, COFINS, ICMS ou ISS) conforme cada faixa e anexo.
 
-Esta ferramenta realiza a comparação analítica do custo tributário próprio e da transferência de créditos para clientes da cadeia B2B (PJ do Lucro Real e Presumido), indicando para qual lado pende a recomendação de migração ou manutenção no DAS.
+3. **Cronograma Escalonado da Transição (2026 a 2033)**:
+   - **2026 (Ano Teste)**: CBS 0,9% e IBS 0,1% compensáveis com PIS/Cofins.
+   - **2027 (CBS Plena)**: Entrada da CBS integral e extinção do PIS/Cofins; ICMS e ISS continuam no DAS.
+   - **2029 a 2032 (Transição do IBS)**: Redução gradual do ICMS/ISS à proporção de 1/10 ao ano.
+   - **2033 (Regime Pleno Definitivo)**: Vigência integral do IVA Dual (~26,5%).
+
+4. **Métrica de Ponto de Equilíbrio (Break-Even de Vendas B2B)**:
+   - Apuração do percentual exato de faturamento com clientes PJ necessário para cobrir o sobrecusto fiscal e operacional do modelo híbrido.
+   - Barra visual de status em relação à meta de break-even.
+
+5. **Custo Oculto de Conformidade**:
+   - Campo para estimar honorários contábeis e sistemas de TI para entrega de obrigações acessórias (SPED, auditoria de XMLs, conciliação de débito/crédito).
+
+6. **Compartilhamento de Simulações (URL State)**:
+   - Todos os dados inseridos (ano, CBS, IBS, anexo, receita, RBT12, B2B, compras, folha e custos) são sincronizados em tempo real nos parâmetros da URL.
+   - Botão **"Compartilhar"** copia o link direto para a área de transferência.
+
+7. **Impressão e Emissão de Parecer Técnico (PDF)**:
+   - Estilos `@media print` otimizados para gerar um relatório executivo formal, pronto para anexar a propostas de consultoria tributária.
+
+8. **Proteção de Código com Texto Copiável**:
+   - Bloqueio de atalhos comuns de inspeção (`F12`, `Ctrl+Shift+I`, `Ctrl+Shift+J`, `Ctrl+Shift+C`, `Ctrl+U`, `Ctrl+S`).
+   - Botão direito inteligente: bloqueia a inspeção se não houver seleção, mas **permite a cópia de qualquer texto ou valor selecionado**.
+   - Atalho `Ctrl + C` totalmente mantido e operacional.
 
 ---
 
-## ⚡ Principais Funcionalidades
+## 🚀 Como Publicar no GitHub Pages
 
-- **Simulação Dinâmica por Perfil de Empresa:**
-  - **Atividades/Anexos:** Anexo I (Comércio), Anexo II (Indústria), Anexo III/V (Serviços com cálculo do Fator R) e Anexo IV.
-  - **Receita Bruta Mensal:** Projeção contínua e cálculo das faixas efetivas.
-  - **Composição da Carteira B2B vs. B2C:** Ajuste do percentual de vendas destinadas a pessoas jurídicas do regime regular.
-  - **Crédito de Entradas:** Apuração do aproveitamento de insumos e compras de fornecedores fora do Simples Nacional.
-  - **Folha de Pagamento & Encargos:** Análise do Fator R para prestadores de serviços.
-- **Painel de Premissas Ajustáveis da Transição (2027):**
-  - Ajuste da alíquota de referência estimada do IVA Dual (IBS + CBS em 2027).
-  - Ajuste da fração do DAS correspondente aos tributos substituídos.
-- **Diagnóstico Automático:**
-  - Comparativo do DAS Normal x DAS Reduzido.
-  - Cálculo do IBS/CBS Líquido no Regime Híbrido.
-  - Análise do diferencial competitivo em vendas B2B via transferência de créditos cheios.
-  - Classificação visual do veredito: *Pende para Híbrido*, *Pende para o DAS* ou *Decisão Apertada*.
-- **Acessibilidade e Layout Responsivo:** Design corporativo de alta definição, pronto para dispositivos móveis e desktops.
+Para atualizar o seu site no GitHub Pages (`silvioalbqrq/TaxReform`):
 
----
-
-## 🛠️ Tecnologias Utilizadas
-
-- **HTML5** & **CSS3** (Variáveis CSS, CSS Grid, Flexbox e componentes modernos)
-- **JavaScript ES6+** (Cálculos e manipulação reativa da DOM sem dependências externas)
-- **Google Fonts** (*Inter*)
-- **Font Awesome 6** (Iconografia vetorial)
-
----
-
-## 🚀 Como Executar ou Publicar
-
-### Visualização Local
-
-1. Clone este repositório:
+1. Clone o repositório existente ou abra a pasta local:
    ```bash
-   git clone [https://github.com/silvioalbqrq/IBSCBS-SimplesNacional.git](https://github.com/silvioalbqrq/IBSCBS-SimplesNacional.git)
+   git clone https://github.com/silvioalbqrq/TaxReform.git
+   cd TaxReform
+   ```
+2. Substitua o arquivo `index.html` pelo novo arquivo gerado em:
+   `taxreform-simples-nacional/index.html`
+3. Faça o commit e o push para o GitHub:
+   ```bash
+   git add index.html README.md
+   git commit -m "feat: Aliquota da CBS customizavel, calculo RBT12 e protecao"
+   git push origin main
+   ```
+4. O GitHub Pages atualizará o site automaticamente em:  
+   `https://silvioalbqrq.github.io/TaxReform/`
