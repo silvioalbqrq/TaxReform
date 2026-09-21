@@ -331,7 +331,7 @@
     }
 
     .rate-field-wrap input[type="number"] {
-      width: 80px;
+      width: 88px;
       padding: 4px 6px;
       border: 1px solid var(--slate-300);
       border-radius: 6px;
@@ -607,6 +607,67 @@
     .breakeven-sub {
       font-size: 0.76rem;
       color: var(--slate-600);
+    }
+
+    .breakeven-help {
+      margin-top: 10px;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 8px;
+      padding: 0.7rem 0.85rem;
+      font-size: 0.78rem;
+      color: var(--slate-700);
+      line-height: 1.55;
+    }
+
+    .breakeven-help strong { color: var(--primary); }
+    .breakeven-help code {
+      background: #fff;
+      border: 1px solid var(--slate-200);
+      border-radius: 4px;
+      padding: 0 5px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.74rem;
+    }
+
+    .explainer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .explainer-step {
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-radius: 8px;
+      padding: 0.8rem 0.9rem;
+      font-size: 0.82rem;
+      color: var(--slate-700);
+    }
+
+    .explainer-step b { color: var(--primary); display: block; margin-bottom: 4px; }
+    .explainer-step .dot-num {
+      display: inline-flex;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      align-items: center;
+      justify-content: center;
+      margin-right: 6px;
+    }
+
+    .disclaimer-box {
+      background: var(--amber-bg);
+      border: 1px solid var(--amber-border);
+      border-radius: 8px;
+      padding: 0.7rem 0.9rem;
+      font-size: 0.78rem;
+      color: #92400e;
+      line-height: 1.5;
     }
 
     /* Comparison Table */
@@ -900,6 +961,11 @@
         <i class="fa-solid fa-calendar-check"></i>
         <span><strong>Janela de Opção CGSN (Res. 186/2026):</strong> De 01 a 30 de setembro de 2026 para vigência no 1º semestre de 2027.</span>
       </div>
+      <p style="max-width:820px;margin:12px auto 0;font-size:0.78rem;color:#cbd5e1;line-height:1.5;">
+        <i class="fa-solid fa-triangle-exclamation" style="color:#fcd34d;"></i>
+        Ferramenta <strong>educacional e simulatória</strong> — não substitui parecer contábil/jurídico.
+        Valide a opção formal com seu contador e confirme a redação vigente da Resolução CGSN no Portal do Simples Nacional.
+      </p>
     </div>
   </section>
 
@@ -949,11 +1015,11 @@
               <i class="fa-solid fa-pen-to-square text-accent"></i>
               <span>Alíquotas da Reforma (Customizáveis)</span>
             </span>
-            <span class="iva-total-badge" id="ivaTotalBadge">IVA Total: 8.9%</span>
+            <span class="iva-total-badge" id="ivaTotalBadge">IVA Total: 8,90%</span>
           </div>
           
           <p style="font-size:0.75rem; color:var(--slate-600); margin-bottom:0.75rem;">
-            *Como a alíquota final da CBS e do IBS depende de regulamentação do Senado Federal, você pode simular com qualquer percentual:
+            *Como a alíquota final da CBS e do IBS depende de regulamentação do Senado Federal, você pode simular com qualquer percentual (2 casas decimais, ex.: 8,87%):
           </p>
 
           <div class="rate-inputs-row">
@@ -961,17 +1027,17 @@
             <div class="rate-input-box">
               <div class="rate-input-label">
                 <span>Alíquota da CBS (Federal)</span>
-                <span class="text-accent" id="cbsValLabel">8.8%</span>
+                <span class="text-accent" id="cbsValLabel">8,80%</span>
               </div>
               <div class="rate-field-wrap">
-                <input type="number" id="aliqCBS" value="8.8" min="0" max="30" step="0.1" oninput="handleCbsNumberInput(this.value)">
-                <input type="range" id="aliqCBSRange" min="0" max="20" step="0.1" value="8.8" oninput="handleCbsRangeInput(this.value)">
+                <input type="number" id="aliqCBS" value="8.80" min="0" max="30" step="0.01" oninput="handleCbsNumberInput(this.value)">
+                <input type="range" id="aliqCBSRange" min="0" max="20" step="0.01" value="8.80" oninput="handleCbsRangeInput(this.value)">
               </div>
               <!-- Presets Rápidos de CBS -->
               <div class="preset-chips">
-                <button type="button" class="chip-btn" onclick="setPresetCBS(7.5)">7.5% (Min)</button>
-                <button type="button" class="chip-btn active" id="chipCbsPadrao" onclick="setPresetCBS(8.8)">8.8% (Padrão)</button>
-                <button type="button" class="chip-btn" onclick="setPresetCBS(9.5)">9.5% (Conserv.)</button>
+                <button type="button" class="chip-btn" onclick="setPresetCBS(7.5)">7,50% (Min)</button>
+                <button type="button" class="chip-btn active" id="chipCbsPadrao" onclick="setPresetCBS(8.8)">8,80% (Padrão)</button>
+                <button type="button" class="chip-btn" onclick="setPresetCBS(9.5)">9,50% (Conserv.)</button>
               </div>
             </div>
 
@@ -979,16 +1045,16 @@
             <div class="rate-input-box">
               <div class="rate-input-label">
                 <span>Alíquota do IBS (Subnacional)</span>
-                <span class="text-emerald" id="ibsValLabel">0.1%</span>
+                <span class="text-emerald" id="ibsValLabel">0,10%</span>
               </div>
               <div class="rate-field-wrap">
-                <input type="number" id="aliqIBS" value="0.1" min="0" max="30" step="0.1" oninput="handleIbsNumberInput(this.value)">
-                <input type="range" id="aliqIBSRange" min="0" max="25" step="0.1" value="0.1" oninput="handleIbsRangeInput(this.value)">
+                <input type="number" id="aliqIBS" value="0.10" min="0" max="30" step="0.01" oninput="handleIbsNumberInput(this.value)">
+                <input type="range" id="aliqIBSRange" min="0" max="25" step="0.01" value="0.10" oninput="handleIbsRangeInput(this.value)">
               </div>
               <div class="preset-chips">
-                <button type="button" class="chip-btn" onclick="setPresetIBS(0.1)">0.1% (Teste 27)</button>
-                <button type="button" class="chip-btn" onclick="setPresetIBS(8.8)">8.8% (Transição)</button>
-                <button type="button" class="chip-btn" onclick="setPresetIBS(17.7)">17.7% (Pleno)</button>
+                <button type="button" class="chip-btn" onclick="setPresetIBS(0.1)">0,10% (Teste 27)</button>
+                <button type="button" class="chip-btn" onclick="setPresetIBS(8.8)">8,80% (Transição)</button>
+                <button type="button" class="chip-btn" onclick="setPresetIBS(17.7)">17,70% (Pleno)</button>
               </div>
             </div>
           </div>
@@ -1052,13 +1118,30 @@
         <!-- Compras com Crédito -->
         <div class="form-group">
           <label class="form-label">
-            <span>Compras de Fornecedores do Regime Regular</span>
-            <span class="subtext">Insumos e mercadorias que geram crédito no IVA</span>
+            <span>Compras de Fornecedores do Regime Regular (não Simples)</span>
+            <span class="subtext">Crédito integral do IVA (CBS + IBS cheias)</span>
           </label>
           <div class="range-wrap">
             <input type="range" id="comprasCredito" min="0" max="100" value="40" oninput="calculate()">
             <span class="range-val" id="comprasCreditoVal">40%</span>
           </div>
+        </div>
+
+        <!-- Compras de Fornecedores do Simples Nacional -->
+        <div class="form-group">
+          <label class="form-label">
+            <span>Compras de Fornecedores do Simples Nacional</span>
+            <span class="subtext">Crédito reduzido — só a fração paga no DAS do fornecedor</span>
+          </label>
+          <div class="range-wrap">
+            <input type="range" id="comprasSN" min="0" max="100" value="15" oninput="calculate()">
+            <span class="range-val" id="comprasSNVal">15%</span>
+          </div>
+          <p style="font-size:0.75rem; color:var(--slate-600); margin-top:4px;">
+            Quem compra de fornecedor Simples <strong>não toma crédito cheio</strong>: aproveita só a alíquota efetiva que o fornecedor
+            recolheu no DAS (alíquota efetiva × fração substituída). Ex.: se o fornecedor paga 8,83% com fração de 19,60%,
+            seu crédito é ~1,73% — bem menor que os 8,90% do regime regular.
+          </p>
         </div>
 
         <!-- Folha de Pagamento -->
@@ -1099,7 +1182,8 @@
               <span class="range-val" id="fracaoDASVal">49%</span>
             </div>
             <p style="font-size:0.75rem; color:var(--slate-600); margin-top:4px;">
-              *Calculada automaticamente segundo a tabela de partição oficial da LC 123/2006 para a faixa de RBT12.
+              *Preenchida automaticamente: partição oficial da LC 123/2006 para a faixa de RBT12 × fator do ano (2026: 10% • 2027: 40% • 2029-32: 70% • 2033: 100%).
+              O slider é apenas visual nesta versão — o cálculo usa o valor oficial. Premissa simplificada: não considera benefícios/NCM específicos.
             </p>
           </div>
         </div>
@@ -1126,15 +1210,26 @@
         <!-- Ponto de Equilíbrio B2B (Break-Even) -->
         <div class="breakeven-card">
           <div class="breakeven-header">
-            <span>Ponto de Equilíbrio B2B (Break-even):</span>
+            <span><i class="fa-solid fa-scale-balanced"></i> Ponto de Equilíbrio B2B (Break-even) <i class="fa-solid fa-circle-question" title="Percentual mínimo de vendas B2B necessário para o ganho com créditos compensar o custo extra do modelo híbrido"></i></span>
             <strong id="breakevenVal">--%</strong>
           </div>
-          <div class="breakeven-bar-bg" title="Meta de Vendas B2B para compensar a migração">
+          <div class="breakeven-bar-bg" title="Barra azul = seu % B2B atual. Traço vermelho = meta de break-even">
             <div class="breakeven-bar-fill" id="breakevenFill"></div>
             <div class="breakeven-target-line" id="breakevenTarget" style="left: 50%;"></div>
           </div>
           <div class="breakeven-sub" id="breakevenDesc">
             Vendas B2B atuais: <strong id="b2bAtualText">65%</strong>.
+          </div>
+          <div class="breakeven-help">
+            <strong>O que significa o break-even?</strong><br>
+            É o <strong>% mínimo de vendas para empresas do Lucro Real/Presumido</strong> que faz o modelo híbrido empatar financeiramente.
+            Abaixo dele, você paga mais imposto do que ganha em competitividade. Acima dele, o crédito extra que seu cliente recebe
+            <strong>compensa o seu sobrecusto</strong>.<br>
+            Fórmula aplicada: <code>Sobrecusto híbrido ÷ (Receita × Ganho de crédito por R$1 B2B)</code><br>
+            <span id="breakevenFormulaLive" style="font-family:'JetBrains Mono',monospace;">—</span><br>
+            <strong>Como ler:</strong> barra azul &ge; traço vermelho = <span class="text-emerald"><strong>vantajoso migrar</strong></span>.
+            Barra azul &lt; traço vermelho = <span class="text-rose"><strong>melhor ficar no DAS</strong></span>.
+            <span id="breakevenCasesLive"></span>
           </div>
         </div>
 
@@ -1178,7 +1273,8 @@
             <tr>
               <td>
                 IBS/CBS Líquido (Por Fora)
-                <span style="font-size:0.75rem; color:var(--slate-600); display:block;" id="taxCompositionLabel">CBS 8.8% + IBS 0.1%</span>
+                <span style="font-size:0.75rem; color:var(--slate-600); display:block;" id="taxCompositionLabel">CBS 8,80% + IBS 0,10%</span>
+                <span style="font-size:0.72rem; color:var(--slate-600); display:block;" id="creditoInsumosDetail">Créditos: —</span>
               </td>
               <td class="val-col">R$ 0,00</td>
               <td class="val-col" id="ibsCbsLiquidoVal">R$ 0,00</td>
@@ -1221,6 +1317,35 @@
 
       </div>
 
+    </div>
+
+    <!-- Entenda o Break-even B2B -->
+    <div class="card" style="margin-bottom: 2.5rem; border-left: 4px solid var(--emerald);">
+      <h2 class="card-title">
+        <div class="card-title-left">
+          <i class="fa-solid fa-circle-question" style="color:var(--emerald);"></i>
+          <span>Entenda o Ponto de Equilíbrio B2B em 1 minuto</span>
+        </div>
+      </h2>
+      <p style="font-size:0.86rem;color:var(--slate-700);line-height:1.6;">
+        O <strong>break-even B2B</strong> responde: <em>“A partir de qual % de vendas para empresas o híbrido passa a valer a pena?”</em>
+        Ele compara <strong>2 números</strong>: (1) quanto <strong>você paga a mais</strong> no híbrido e (2) quanto <strong>seu cliente PJ ganha a mais</strong> em crédito comprando de você.
+      </p>
+      <div class="explainer-grid">
+        <div class="explainer-step"><b><span class="dot-num">1</span>Seu sobrecusto</b>Híbrido − DAS: IBS/CBS líquido por fora + conformidade − desconto no DAS. Ex.: <span id="beExCusto" style="font-family:'JetBrains Mono',monospace;">—</span>/mês.</div>
+        <div class="explainer-step"><b><span class="dot-num">2</span>Ganho do cliente por R$1 B2B</b>Crédito híbrido integral menos crédito parcial no DAS. Ex.: <span id="beExMargem" style="font-family:'JetBrains Mono',monospace;">—</span> por R$1 vendido B2B.</div>
+        <div class="explainer-step"><b><span class="dot-num">3</span>Conta final</b>Break-even = sobrecusto ÷ (receita × ganho por R$1). Ex.: <span id="beExConta" style="font-family:'JetBrains Mono',monospace;">—</span>.</div>
+      </div>
+      <div class="explainer-grid">
+        <div class="explainer-step" style="border-left:4px solid var(--emerald);"><b>0% — Híbrido já vence sozinho</b>Seus créditos de compras + desconto no DAS já superam o custo. Vale migrar mesmo vendendo só para pessoa física.</div>
+        <div class="explainer-step" style="border-left:4px solid var(--accent);"><b>Ex.: 42% — meta atingível</b>Se você vende 65% B2B e a meta é 42%, está <strong>23 p.p. acima</strong>: migração compensa e protege clientes PJ.</div>
+        <div class="explainer-step" style="border-left:4px solid var(--rose);"><b>&gt;100% — inviável neste cenário</b>Nem vendendo 100% B2B o crédito cobre o sobrecusto. Melhor ficar 100% no DAS ou revisar compras/custos.</div>
+      </div>
+      <div class="disclaimer-box" style="margin-top:12px;">
+        <i class="fa-solid fa-triangle-exclamation"></i> <strong>Premissas simplificadas:</strong> este simulador usa fração de tributos substituídos × fator do ano
+        (2026: 10%, 2027: 40%, 2029-32: 70%, 2033: 100%) e não considera CPP, ICMS-ST, benefícios fiscais, NCM específico nem split payment.
+        Use como triagem — a decisão formal exige conciliação dos XMLs e validação do contador.
+      </div>
     </div>
 
     <!-- Informações Legais & Cronograma -->
@@ -1280,6 +1405,16 @@
 
       <div class="faq-item" onclick="toggleFaq(this)">
         <div class="faq-q">
+          <span>O que é o break-even B2B, na prática? (com exemplo)</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-a">
+          É o <strong>% mínimo de vendas B2B</strong> que empata a conta. Exemplo: receita R$100 mil, sobrecusto híbrido R$2.000/mês e ganho de crédito de R$0,05 por R$1 B2B → break-even = 2.000 ÷ (100.000 × 0,05) = <strong>40%</strong>. Se você vende 65% B2B, está 25 p.p. acima da meta: <strong>compensa migrar</strong>. Se vende 20%, está abaixo: <strong>melhor ficar no DAS</strong>. Casos especiais: <strong>0%</strong> = híbrido já vence sozinho; <strong>&gt;100%</strong> = nem 100% B2B cobre o custo.
+        </div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">
           <span>Por que a alíquota da CBS é editável neste simulador?</span>
           <i class="fa-solid fa-chevron-down"></i>
         </div>
@@ -1304,7 +1439,20 @@
           <i class="fa-solid fa-chevron-down"></i>
         </div>
         <div class="faq-a">
-          Quando uma empresa do Simples Nacional vende mantendo-se 100% no DAS, o comprador PJ no regime regular (Lucro Real ou Presumido) só pode se creditar do montante de IBS/CBS efetivamente pago dentro do DAS (fração de 15% a 49% da alíquota do Simples). Já se a empresa optar pelo Modelo Híbrido, o cliente PJ toma 100% de crédito da alíquota de referência (8,8% em 2027 ou ~26,5% em 2033), tornando o produto do Simples comercialmente mais competitivo.
+          Quando uma empresa do Simples Nacional vende mantendo-se 100% no DAS, o comprador PJ no regime regular (Lucro Real ou Presumido) só pode se creditar do montante de IBS/CBS efetivamente pago dentro do DAS (fração de 15% a 49% da alíquota do Simples). Já se a empresa optar pelo Modelo Híbrido, o cliente PJ toma 100% de crédito da alíquota de referência (8,80% em 2027 ou ~26,50% em 2033), tornando o produto do Simples comercialmente mais competitivo.
+        </div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">
+          <span>Comprei de fornecedor do Simples: tomo crédito cheio no híbrido?</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-a">
+          Não. No modelo híbrido, compras de fornecedores do <strong>regime regular</strong> geram crédito integral (ex.: 8,80% + 0,10% = 8,90%).
+          Compras de fornecedores do <strong>Simples Nacional</strong> geram crédito <strong>reduzido</strong>, limitado ao que o fornecedor efetivamente recolheu no DAS
+          (alíquota efetiva dele × fração substituída). Por isso o simulador tem dois campos separados. Premissa simplificada: usa seu próprio anexo/faixa
+          como proxy do fornecedor SN — se seus fornecedores forem de anexo diferente, peça ao contador a alíquota efetiva média deles.
         </div>
       </div>
 
@@ -1324,7 +1472,17 @@
           <i class="fa-solid fa-chevron-down"></i>
         </div>
         <div class="faq-a">
-          O simulador aplica a fórmula oficial da Lei Complementar 123/2006: <code>(RBT12 × Alíquota Nominal - Parcela a Deduzir) ÷ RBT12</code>, verificando o anexo aplicável (I, II, III, IV ou V) e deduzindo exatamente o percentual de partição dos tributos substituídos (PIS, COFINS, ICMS ou ISS) estabelecido na tabela da legislação para cada faixa.
+          O simulador aplica a fórmula oficial da Lei Complementar 123/2006: <code>(RBT12 × Alíquota Nominal - Parcela a Deduzir) ÷ RBT12</code>, verificando o anexo aplicável (I, II, III, IV ou V) e deduzindo exatamente o percentual de partição dos tributos substituídos (PIS, COFINS, ICMS ou ISS) estabelecido na tabela da legislação para cada faixa. Em seguida aplica o <strong>fator do ano</strong> (2026: 10%, 2027: 40%, 2029-32: 70%, 2033: 100%) como premissa simplificada da transição — confirme com seu contador, pois NCM, benefícios e CPP podem alterar a fração real.
+        </div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">
+          <span>Este simulador substitui o parecer do contador?</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-a">
+          Não. É uma ferramenta de <strong>triagem educacional</strong>. Ela não considera CPP, ICMS-ST, sublimites estaduais, benefícios fiscais por NCM, créditos presumidos nem split payment. Use o relatório impresso como ponto de partida e valide a opção de setembro/2026 com conciliação dos XMLs dos últimos 6 meses e assessoria contábil.
         </div>
       </div>
 
@@ -1335,6 +1493,7 @@
   <footer class="no-print">
     <p><strong>TaxReform | IBS/CBS Simples Nacional Pro</strong> — Desenvolvido para publicação em GitHub Pages</p>
     <p style="margin-top: 4px; color: var(--slate-600);">Modelagem com base na Lei Complementar 123/2006, Emenda Constitucional 132/2023, PLP 68/2024 e Resolução CGSN 186/2026.</p>
+    <p style="margin-top:8px;font-size:0.76rem;color:var(--slate-600);max-width:900px;margin-left:auto;margin-right:auto;">Aviso legal: conteúdo educacional, sem caráter de consultoria tributária ou jurídica. Alíquotas de CBS/IBS ainda sujeitas a regulamentação do Senado. Confirme prazos e vedações (inclusive MEI) no Portal do Simples Nacional.</p>
   </footer>
 
   <!-- Script da Calculadora Oficial e Proteção -->
@@ -1459,51 +1618,58 @@
       calculate();
     }
 
-    /* Controles da CBS */
+    /* Controles da CBS — 2 casas decimais (ex.: 8,80%, 8,87%) */
+    function fmtPct2(v) {
+      return (parseFloat(v) || 0).toFixed(2).replace('.', ',') + '%';
+    }
+    function parsePct(val) {
+      if (typeof val === 'string') val = val.replace(',', '.');
+      return parseFloat(val) || 0;
+    }
     function handleCbsNumberInput(val) {
-      let v = parseFloat(val) || 0;
+      let v = parsePct(val);
       v = Math.max(0, Math.min(v, 30));
       document.getElementById('aliqCBSRange').value = v;
-      document.getElementById('cbsValLabel').innerText = v.toFixed(1) + '%';
+      document.getElementById('cbsValLabel').innerText = fmtPct2(v);
       clearChipActive('preset-chips');
       calculate();
     }
 
     function handleCbsRangeInput(val) {
-      let v = parseFloat(val) || 0;
-      document.getElementById('aliqCBS').value = v.toFixed(1);
-      document.getElementById('cbsValLabel').innerText = v.toFixed(1) + '%';
+      let v = parsePct(val);
+      document.getElementById('aliqCBS').value = v.toFixed(2);
+      document.getElementById('cbsValLabel').innerText = fmtPct2(v);
       clearChipActive('preset-chips');
       calculate();
     }
 
     function setPresetCBS(val) {
-      document.getElementById('aliqCBS').value = val.toFixed(1);
+      document.getElementById('aliqCBS').value = val.toFixed(2);
       document.getElementById('aliqCBSRange').value = val;
-      document.getElementById('cbsValLabel').innerText = val.toFixed(1) + '%';
+      document.getElementById('cbsValLabel').innerText = fmtPct2(val);
       calculate();
     }
 
-    /* Controles do IBS */
+    /* Controles do IBS — 2 casas decimais */
     function handleIbsNumberInput(val) {
-      let v = parseFloat(val) || 0;
+      let v = parsePct(val);
       v = Math.max(0, Math.min(v, 30));
       document.getElementById('aliqIBSRange').value = v;
-      document.getElementById('ibsValLabel').innerText = v.toFixed(1) + '%';
+      document.getElementById('ibsValLabel').innerText = fmtPct2(v);
       calculate();
     }
 
     function handleIbsRangeInput(val) {
-      let v = parseFloat(val) || 0;
-      document.getElementById('aliqIBS').value = v.toFixed(1);
-      document.getElementById('ibsValLabel').innerText = v.toFixed(1) + '%';
+      let v = parsePct(val);
+      document.getElementById('aliqIBS').value = v.toFixed(2);
+      document.getElementById('ibsValLabel').innerText = fmtPct2(v);
       calculate();
     }
 
     function setPresetIBS(val) {
-      document.getElementById('aliqIBS').value = val.toFixed(1);
+      document.getElementById('aliqIBS').value = val.toFixed(2);
       document.getElementById('aliqIBSRange').value = val;
-      document.getElementById('ibsValLabel').innerText = val.toFixed(1) + '%';
+      document.getElementById('ibsValLabel').innerText = fmtPct2(val);
       calculate();
     }
 
@@ -1551,6 +1717,7 @@
       document.getElementById('rbt12').dataset.manual = "false";
       document.getElementById('vendasB2B').value = '65';
       document.getElementById('comprasCredito').value = '40';
+      document.getElementById('comprasSN').value = '15';
       document.getElementById('folha').value = '22';
       document.getElementById('custoConformidade').value = '800';
       setYear('2027');
@@ -1573,22 +1740,24 @@
       const rbt12 = Math.max(receita, parseFloat(document.getElementById('rbt12').value) || (receita * 12));
       const pctB2B = (parseFloat(document.getElementById('vendasB2B').value) || 0) / 100;
       const pctCompras = (parseFloat(document.getElementById('comprasCredito').value) || 0) / 100;
+      const pctComprasSN = (parseFloat(document.getElementById('comprasSN') ? document.getElementById('comprasSN').value : 0) || 0) / 100;
       const pctFolha = (parseFloat(document.getElementById('folha').value) || 0) / 100;
       const custoConformidade = Math.max(0, parseFloat(document.getElementById('custoConformidade').value) || 0);
 
-      // Alíquotas Editáveis de CBS e IBS
-      const valCBS = parseFloat(document.getElementById('aliqCBS').value) || 0;
-      const valIBS = parseFloat(document.getElementById('aliqIBS').value) || 0;
+      // Alíquotas Editáveis de CBS e IBS (2 casas decimais)
+      const valCBS = parsePct(document.getElementById('aliqCBS').value);
+      const valIBS = parsePct(document.getElementById('aliqIBS').value);
       const aliqIVAPercent = valCBS + valIBS;
       const aliqIVA = aliqIVAPercent / 100;
 
       // Atualiza Badge do IVA Total
-      document.getElementById('ivaTotalBadge').innerText = `IVA Total: ${aliqIVAPercent.toFixed(1)}%`;
-      document.getElementById('taxCompositionLabel').innerText = `CBS ${valCBS.toFixed(1)}% + IBS ${valIBS.toFixed(1)}%`;
+      document.getElementById('ivaTotalBadge').innerText = `IVA Total: ${fmtPct2(aliqIVAPercent)}`;
+      document.getElementById('taxCompositionLabel').innerText = `CBS ${fmtPct2(valCBS)} + IBS ${fmtPct2(valIBS)}`;
 
       // Atualização dos Labels
       document.getElementById('vendasB2BVal').innerText = Math.round(pctB2B * 100) + '%';
       document.getElementById('comprasCreditoVal').innerText = Math.round(pctCompras * 100) + '%';
+      if (document.getElementById('comprasSNVal')) document.getElementById('comprasSNVal').innerText = Math.round(pctComprasSN * 100) + '%';
       document.getElementById('folhaVal').innerText = Math.round(pctFolha * 100) + '%';
       document.getElementById('fatorRLabel').innerText = `Fator R: ${Math.round(pctFolha * 100)}% (${pctFolha >= 0.28 ? 'Anexo III elegível' : 'Anexo V aplicável'})`;
 
@@ -1616,7 +1785,7 @@
       let aliqEfetivaDAS = ((rbt12 * faixa.aliqNominal) - faixa.deducao) / rbt12;
       aliqEfetivaDAS = Math.max(0.04, Math.min(aliqEfetivaDAS, 0.33));
 
-      document.getElementById('aliqEfetivaBadge').innerText = `Alíquota Efetiva: ${(aliqEfetivaDAS * 100).toFixed(2)}%`;
+      document.getElementById('aliqEfetivaBadge').innerText = `Alíquota Efetiva: ${(aliqEfetivaDAS * 100).toFixed(2).replace('.', ',')}%`;
 
       // Fração Oficial de Tributos Substituídos
       const cenario = CENARIOS_ANOS[selectedYear];
@@ -1635,9 +1804,15 @@
       const creditoDAS = receita * pctB2B * (aliqEfetivaDAS * fracaoEfetivaSubstituida);
 
       // 2. Cenário: Modelo Híbrido (IBS/CBS por fora)
+      // Premissa: fornecedor do Regime Regular gera crédito integral (CBS+IBS cheias);
+      // fornecedor do Simples Nacional gera crédito reduzido (alíquota efetiva do fornecedor × fração substituída).
+      // Simplificação: usa seu próprio anexo/faixa como proxy do fornecedor SN — ajuste com seu contador se o mix for diferente.
       const dasReduzido = dasNormal * (1 - fracaoEfetivaSubstituida);
       const debitoIBSCBS = receita * aliqIVA;
-      const creditoInsumos = (receita * pctCompras) * aliqIVA;
+      const creditoInsumosRegular = (receita * pctCompras) * aliqIVA;
+      const aliqCreditoSN = aliqEfetivaDAS * fracaoEfetivaSubstituida;
+      const creditoInsumosSN = (receita * pctComprasSN) * aliqCreditoSN;
+      const creditoInsumos = creditoInsumosRegular + creditoInsumosSN;
       const ibsCbsLiquido = Math.max(0, debitoIBSCBS - creditoInsumos);
       const custoProprioHibrido = dasReduzido + ibsCbsLiquido + custoConformidade;
       // Crédito transferido no Híbrido (Integral sobre as vendas B2B)
@@ -1658,6 +1833,12 @@
       // Atualiza DOM da Tabela
       document.getElementById('dasNormalVal').innerText = formatBRL(dasNormal);
       document.getElementById('dasReduzidoVal').innerText = formatBRL(dasReduzido);
+      if (document.getElementById('creditoInsumosDetail')) {
+        let avisoSoma = '';
+        if ((pctCompras + pctComprasSN) > 1) avisoSoma = ' ⚠ Soma das compras > 100% da receita — revise os percentuais.';
+        document.getElementById('creditoInsumosDetail').innerText =
+          `Créditos: regular ${formatBRL(creditoInsumosRegular)} (integral ${fmtPct2(aliqIVAPercent)}) + Simples ${formatBRL(creditoInsumosSN)} (reduzido ${fmtPct2(aliqCreditoSN * 100)}) = ${formatBRL(creditoInsumos)}.${avisoSoma}`;
+      }
       document.getElementById('ibsCbsLiquidoVal').innerText = formatBRL(ibsCbsLiquido);
       document.getElementById('conformidadeVal').innerText = formatBRL(custoConformidade);
       document.getElementById('custoDASVal').innerText = formatBRL(custoProprioDAS);
@@ -1691,24 +1872,44 @@
       const b2bAtualText = document.getElementById('b2bAtualText');
       b2bAtualText.innerText = Math.round(pctB2B * 100) + '%';
 
-      if (deltaCustoProprio <= 0) {
+      // Preenche explicação didática com números reais da simulação (mantém paleta)
+      const setText = (id, txt) => { const el = document.getElementById(id); if (el) el.innerText = txt; };
+      const margemReais = margemCreditoUnitario * receita;
+      if (receita > 0 && margemCreditoUnitario > 0) {
+        setText('breakevenFormulaLive', `${formatBRL(deltaCustoProprio)} ÷ (${formatBRL(receita)} × ${margemCreditoUnitario.toFixed(4)}) = ${breakEvenPct.toFixed(2)}%`);
+        setText('beExCusto', formatBRL(deltaCustoProprio));
+        setText('beExMargem', `R$ ${margemCreditoUnitario.toFixed(4)}`);
+        setText('beExConta', `${formatBRL(deltaCustoProprio)} ÷ ${formatBRL(margemReais)} = ${breakEvenPct.toFixed(2)}%`);
+        const diffPP = (pctB2B * 100 - breakEvenPct).toFixed(2);
+        setText('breakevenCasesLive', ` No seu caso: B2B ${Math.round(pctB2B*100)}% vs meta ${breakEvenPct.toFixed(2)}% (diferença ${diffPP} p.p.).`);
+      } else {
+        setText('breakevenFormulaLive', 'Preencha receita e alíquotas para ver a conta.');
+        setText('breakevenCasesLive', '');
+      }
+
+      if (receita <= 0) {
+        breakevenValEl.innerText = '--% (informe a receita)';
+        breakevenFill.style.width = '0%';
+        breakevenTarget.style.left = '0%';
+        document.getElementById('breakevenDesc').innerHTML = `Informe a <strong>receita mensal</strong> para calcular o ponto de equilíbrio. Valores zerados não geram diagnóstico válido.`;
+      } else if (deltaCustoProprio <= 0) {
         breakevenValEl.innerText = '0% (Custo próprio é menor no Híbrido!)';
         breakevenFill.style.width = '100%';
         breakevenTarget.style.left = '0%';
         document.getElementById('breakevenDesc').innerHTML = `O modelo híbrido já é vantajoso mesmo sem clientes B2B devido ao volume de créditos gerado nas compras.`;
       } else if (breakEvenPct > 100) {
-        breakevenValEl.innerText = `> 100% (${breakEvenPct.toFixed(0)}%)`;
+        breakevenValEl.innerText = `> 100% (${breakEvenPct.toFixed(2)}%)`;
         breakevenFill.style.width = Math.min(100, Math.round(pctB2B * 100)) + '%';
         breakevenTarget.style.left = '100%';
-        document.getElementById('breakevenDesc').innerHTML = `Com a alíquota de CBS/IBS configurada (${aliqIVAPercent.toFixed(1)}%), o crédito transferido não cobre o sobrecusto fiscal.`;
+        document.getElementById('breakevenDesc').innerHTML = `Com a alíquota de CBS/IBS configurada (${fmtPct2(aliqIVAPercent)}), o crédito transferido não cobre o sobrecusto fiscal.`;
       } else {
-        breakevenValEl.innerText = `${breakEvenPct.toFixed(1)}% de vendas B2B`;
+        breakevenValEl.innerText = `${breakEvenPct.toFixed(2)}% de vendas B2B`;
         breakevenFill.style.width = Math.min(100, Math.round(pctB2B * 100)) + '%';
         breakevenTarget.style.left = Math.min(100, Math.round(breakEvenPct)) + '%';
         if (pctB2B * 100 >= breakEvenPct) {
-          document.getElementById('breakevenDesc').innerHTML = `Seu volume B2B atual (${Math.round(pctB2B * 100)}%) está <strong class="text-emerald">acima do break-even (${breakEvenPct.toFixed(1)}%)</strong>. A migração compensa!`;
+          document.getElementById('breakevenDesc').innerHTML = `Seu volume B2B atual (${Math.round(pctB2B * 100)}%) está <strong class="text-emerald">acima do break-even (${breakEvenPct.toFixed(2)}%)</strong>. A migração compensa!`;
         } else {
-          document.getElementById('breakevenDesc').innerHTML = `Seu volume B2B atual (${Math.round(pctB2B * 100)}%) está <strong class="text-rose">abaixo do break-even (${breakEvenPct.toFixed(1)}%)</strong>. Risco de prejuízo financeiro.`;
+          document.getElementById('breakevenDesc').innerHTML = `Seu volume B2B atual (${Math.round(pctB2B * 100)}%) está <strong class="text-rose">abaixo do break-even (${breakEvenPct.toFixed(2)}%)</strong>. Risco de prejuízo financeiro.`;
         }
       }
 
@@ -1723,14 +1924,14 @@
         verdictBox.className = 'verdict-box hibrido';
         verdictBadge.innerText = 'Recomendação Comercial';
         verdictTitle.innerText = 'Migrar para o Modelo Híbrido (IBS/CBS por Fora)';
-        verdictDesc.innerText = `Com CBS em ${valCBS.toFixed(1)}% e IBS em ${valIBS.toFixed(1)}%, o ganho de competitividade B2B (+${formatBRL(deltaCreditoTransferido)}) supera o custo extra tributário (+${formatBRL(deltaCustoProprio)}).`;
+        verdictDesc.innerText = `Com CBS em ${fmtPct2(valCBS)} e IBS em ${fmtPct2(valIBS)}, o ganho de competitividade B2B (+${formatBRL(deltaCreditoTransferido)}) supera o custo extra tributário (+${formatBRL(deltaCustoProprio)}).`;
         insightText.innerHTML = `<strong>Vantagem Competitiva:</strong> Seus clientes PJ economizarão <strong>${formatBRL(deltaCreditoTransferido)}</strong> a mais em créditos por mês comprando de sua empresa. O break-even de vendas PJ foi superado, tornando a opção estratégica ideal para preservar clientes do Lucro Real/Presumido.`;
       } else if (Math.abs(ganhoLiquidoOperacao) < (receita * 0.012) && pctB2B >= 0.35) {
         verdictBox.className = 'verdict-box apertado';
         verdictBadge.innerText = 'Atenção / Zona Crítica';
         verdictTitle.innerText = 'Decisão Apertada — Sensível à Alíquota e NCM';
-        verdictDesc.innerText = `A diferença entre os cenários é inferior a 1,2% da receita. Pequenas oscilações na alíquota da CBS (${valCBS.toFixed(1)}%) ou no mix de insumos definirão o resultado.`;
-        insightText.innerHTML = `<strong>Recomendação Técnica:</strong> Solicite ao seu contador uma auditoria de NCM nos XMLs dos últimos 6 meses. Se a CBS for fixada abaixo de ${valCBS.toFixed(1)}%, a atratividade do modelo híbrido aumentará.`;
+        verdictDesc.innerText = `A diferença entre os cenários é inferior a 1,2% da receita. Pequenas oscilações na alíquota da CBS (${fmtPct2(valCBS)}) ou no mix de insumos definirão o resultado.`;
+        insightText.innerHTML = `<strong>Recomendação Técnica:</strong> Solicite ao seu contador uma auditoria de NCM nos XMLs dos últimos 6 meses. Se a CBS for fixada abaixo de ${fmtPct2(valCBS)}, a atratividade do modelo híbrido aumentará.`;
       } else {
         verdictBox.className = 'verdict-box das';
         verdictBadge.innerText = 'Recomendação Tributária';
@@ -1740,7 +1941,7 @@
       }
 
       // Atualiza dados no Cabeçalho de Impressão
-      document.getElementById('printMetaInfo').innerText = `Emitido em: ${new Date().toLocaleDateString('pt-BR')} | Empresa: ${tabela.nome} | RBT12: ${formatBRL(rbt12)} | CBS: ${valCBS.toFixed(1)}% | IBS: ${valIBS.toFixed(1)}% | Cenário: ${cenario.nome}`;
+      document.getElementById('printMetaInfo').innerText = `Emitido em: ${new Date().toLocaleDateString('pt-BR')} | Empresa: ${tabela.nome} | RBT12: ${formatBRL(rbt12)} | CBS: ${fmtPct2(valCBS)} | IBS: ${fmtPct2(valIBS)} | Cenário: ${cenario.nome} | Compras Regular: ${Math.round(pctCompras*100)}% / SN: ${Math.round(pctComprasSN*100)}%`;
 
       // Atualiza URL State
       syncUrlParams();
@@ -1759,6 +1960,7 @@
       params.set('rbt', document.getElementById('rbt12').value);
       params.set('b2b', document.getElementById('vendasB2B').value);
       params.set('compras', document.getElementById('comprasCredito').value);
+      if (document.getElementById('comprasSN')) params.set('comprasSN', document.getElementById('comprasSN').value);
       params.set('folha', document.getElementById('folha').value);
       params.set('conf', document.getElementById('custoConformidade').value);
       const newUrl = window.location.pathname + '?' + params.toString();
@@ -1778,6 +1980,7 @@
       }
       if (params.has('b2b')) document.getElementById('vendasB2B').value = params.get('b2b');
       if (params.has('compras')) document.getElementById('comprasCredito').value = params.get('compras');
+      if (params.has('comprasSN') && document.getElementById('comprasSN')) document.getElementById('comprasSN').value = params.get('comprasSN');
       if (params.has('folha')) document.getElementById('folha').value = params.get('folha');
       if (params.has('conf')) document.getElementById('custoConformidade').value = params.get('conf');
     }
