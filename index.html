@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calculadora IBS/CBS — Dentro ou Fora do DAS? | Simples Nacional Pro</title>
-  <meta name="description" content="Simulador avançado para tomada de decisão estratégica do Simples Nacional na Reforma Tributária (EC 132/2023, LC 123/2006 e Resolução CGSN 186/2026). Alíquotas de CBS e IBS totalmente editáveis.">
+  <meta name="description" content="Simulador avançado para tomada de decisão estratégica do Simples Nacional na Reforma Tributária (EC 132/2023, LC 123/2006, LC 214/2025 e Resoluções CGSN 186/2026, 190 e 191/2026). Alíquotas de CBS e IBS totalmente editáveis. Estimativas declaradas.">
 
   <!-- Google Fonts & Font Awesome -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -989,7 +989,7 @@
         <span>TaxReform | IBS/CBS Simples Nacional Pro</span>
       </a>
       <div class="header-actions">
-        <span class="badge-legal"><i class="fa-solid fa-scale-balanced"></i> LC 123/06 • EC 132/23 • CGSN 186/26</span>
+        <span class="badge-legal"><i class="fa-solid fa-scale-balanced"></i> LC 123/06 • LC 214/25 • EC 132/23 • CGSN 186/26</span>
         <button class="btn-header" onclick="shareSimulation()" title="Copiar link com parâmetros desta simulação">
           <i class="fa-solid fa-share-nodes"></i>
           <span>Compartilhar</span>
@@ -1006,10 +1006,10 @@
   <section class="hero no-print">
     <div class="hero-container">
       <h1>IBS e CBS dentro ou fora do DAS?</h1>
-      <p>Simulador técnico de decisão tributária: cálculo oficial por RBT12, cronograma da transição (2026-2033), alíquotas de CBS e IBS editáveis e parecer técnico contábil.</p>
+      <p>Simulador técnico de decisão tributária: cálculo oficial por RBT12 (LC 123/2006), cronograma da transição (EC 132/2023 + LC 214/2025), alíquotas de CBS e IBS editáveis e parecer técnico contábil.</p>
       <div class="legal-alert">
         <i class="fa-solid fa-calendar-check"></i>
-        <span><strong>Janela de Opção CGSN (Res. 186/2026):</strong> De 01 a 30 de setembro de 2026 para vigência no 1º semestre de 2027.</span>
+        <span><strong>Janela de Opção CGSN (Res. 186/2026):</strong> De 01 a 30 de setembro de 2026 para vigência no 1º semestre de 2027 (jan-jun/2027). Nova janela em março/2027 para o 2º semestre. Quem não optar permanece no DAS.</span>
       </div>
       <p style="max-width:820px;margin:12px auto 0;font-size:0.78rem;color:#cbd5e1;line-height:1.5;">
         <i class="fa-solid fa-triangle-exclamation" style="color:#fcd34d;"></i>
@@ -1055,7 +1055,7 @@
           <button type="button" class="year-btn" onclick="setYear('2033')">2033 (Pleno)</button>
         </div>
         <div class="year-note" id="yearContextNote">
-          <i class="fa-solid fa-circle-info"></i> <strong>Cenário 2027:</strong> Entrada da CBS integral e extinção de PIS/Cofins. O ICMS e ISS continuam no DAS. Opção de recolher a CBS por fora.
+          <i class="fa-solid fa-circle-info"></i> <strong>Cenário 2027:</strong> CBS plena substitui PIS/Cofins. IBS segue teste 0,1% (0,05%+0,05%). ICMS e ISS continuam integrais no DAS. Direito de optar pelo regime regular de IBS/CBS (art. 41, §3º LC 214/2025).
         </div>
 
         <!-- CARD DESTACADO: EDITOR DE ALÍQUOTA DA CBS E IBS -->
@@ -1069,7 +1069,7 @@
           </div>
           
           <p style="font-size:0.75rem; color:var(--slate-600); margin-bottom:0.75rem;">
-            *Como a alíquota final da CBS e do IBS depende de regulamentação do Senado Federal, você pode simular com qualquer percentual (2 casas decimais, ex.: 8,87%):
+            *A alíquota de referência da <strong>CBS 2027 está em calibragem</strong>: Receita envia metodologia ao TCU até 14/09/2026, TCU calcula até 30/10, Senado fixa até 15/12/2026 (LC 214/2025). Estimativas de mercado: 8,8%–9,3%. Teto legal IVA pleno: 26,5% (CGIBS estimou 27,91% só para orçamento 2027 — não é alíquota definitiva). Simule com 2 casas decimais:
           </p>
 
           <div class="rate-inputs-row">
@@ -1085,8 +1085,8 @@
               </div>
               <!-- Presets Rápidos de CBS -->
               <div class="preset-chips">
-                <button type="button" class="chip-btn" onclick="setPresetCBS(7.5)">7,50% (Min)</button>
-                <button type="button" class="chip-btn active" id="chipCbsPadrao" onclick="setPresetCBS(8.8)">8,80% (Padrão)</button>
+                <button type="button" class="chip-btn active" onclick="setPresetCBS(8.8)">8,80% (Ref. mercado)</button>
+                <button type="button" class="chip-btn" id="chipCbsPadrao" onclick="setPresetCBS(9.21)">9,21% (CGIBS p/ orçamento)</button>
                 <button type="button" class="chip-btn" onclick="setPresetCBS(9.5)">9,50% (Conserv.)</button>
               </div>
             </div>
@@ -1102,10 +1102,11 @@
                 <input type="range" id="aliqIBSRange" min="0" max="25" step="0.01" value="0.10" oninput="handleIbsRangeInput(this.value)">
               </div>
               <div class="preset-chips">
-                <button type="button" class="chip-btn" onclick="setPresetIBS(0.1)">0,10% (Teste 27)</button>
-                <button type="button" class="chip-btn" onclick="setPresetIBS(8.8)">8,80% (Transição)</button>
-                <button type="button" class="chip-btn" onclick="setPresetIBS(17.7)">17,70% (Pleno)</button>
+                <button type="button" class="chip-btn" onclick="setPresetIBS(0.1)">0,10% (Teste 26-28)</button>
+                <button type="button" class="chip-btn" onclick="setPresetIBS(1.77)">1,77% (Degrau 29)</button>
+                <button type="button" class="chip-btn" onclick="setPresetIBS(17.7)">17,70% (Pleno 33*)</button>
               </div>
+              <p style="font-size:0.7rem;color:var(--slate-600);margin-top:6px;">*Pleno só em 2033. Não use 17,70% para simular 2027 — em 2027 o IBS é 0,10% teste. IVA pleno ref. ~26,5% (8,8% CBS + 17,7% IBS), sujeito ao teto legal.</p>
             </div>
           </div>
         </div>
@@ -1189,8 +1190,8 @@
           </div>
           <p style="font-size:0.75rem; color:var(--slate-600); margin-top:4px;">
             Quem compra de fornecedor Simples <strong>não toma crédito cheio</strong>: aproveita só a alíquota efetiva que o fornecedor
-            recolheu no DAS (alíquota efetiva × fração substituída). Ex.: se o fornecedor paga 8,83% com fração de 19,60%,
-            seu crédito é ~1,73% — bem menor que os 8,90% do regime regular.
+            recolheu no DAS (alíquota efetiva × parcela IBS/CBS). Ex. 2027: se o fornecedor paga 8,83% com parcela de 15,5%,
+            seu crédito é ~1,37% — bem menor que os 8,90% do regime regular (8,80% CBS + 0,10% IBS).
           </p>
         </div>
 
@@ -1220,20 +1221,22 @@
 
         <!-- Premissas Técnicas da Reforma Toggle -->
         <button class="accordion-toggle no-print" onclick="togglePremissas()">
-          <span><i class="fa-solid fa-gears"></i> Fração de Tributos Substituídos no DAS</span>
+          <span><i class="fa-solid fa-gears"></i> Parcela de IBS/CBS no DAS (estimativa editável)</span>
           <i class="fa-solid fa-chevron-down" id="premissasIcon"></i>
         </button>
 
         <div class="accordion-content" id="premissasContent">
           <div class="form-group">
-            <label class="form-label">Fração da Guia do DAS referente aos Tributos Substituídos</label>
+            <label class="form-label">Fração do DAS que vira IBS/CBS em 2027 (sai do DAS no híbrido)</label>
             <div class="range-wrap">
-              <input type="range" id="fracaoDAS" min="5" max="80" step="1" value="49" oninput="calculate()">
-              <span class="range-val" id="fracaoDASVal">49%</span>
+              <input type="range" id="fracaoDAS" min="5" max="40" step="0.5" value="15.5" oninput="calculate()">
+              <span class="range-val" id="fracaoDASVal">15,5%</span>
             </div>
             <p style="font-size:0.75rem; color:var(--slate-600); margin-top:4px;">
-              *Preenchida automaticamente: partição oficial da LC 123/2006 para a faixa de RBT12 × fator do ano (2026: 10% • 2027: 40% • 2029-32: 70% • 2033: 100%).
-              O slider é apenas visual nesta versão — o cálculo usa o valor oficial. Premissa simplificada: não considera benefícios/NCM específicos.
+              *<strong>Estimativa metodológica declarada — sem tabela oficial publicada.</strong>
+              Preenchida por anexo como média 2027 (só PIS/Cofins → CBS + IBS teste): I 15,5% • II 15,0% • III 14,5% • IV 16,0% • V 14,0%.
+              Os percentuais exatos variam por faixa na LC 214/2025 e por NCM/benefício. Ajuste manualmente se seu contador apurou a partição real da faixa.
+              Em 2027 o ICMS/ISS <strong>não</strong> sai do DAS — por isso NÃO usamos mais “fator do ano 10/40/70/100%”. Para cenários 2029-33, eleve a fração proporcionalmente à saída do ICMS/ISS.
             </p>
           </div>
         </div>
@@ -1392,9 +1395,7 @@
         <div class="explainer-step" style="border-left:4px solid var(--rose);"><b>&gt;100% — inviável neste cenário</b>Nem vendendo 100% B2B o crédito cobre o sobrecusto. Melhor ficar 100% no DAS ou revisar compras/custos.</div>
       </div>
       <div class="disclaimer-box" style="margin-top:12px;">
-        <i class="fa-solid fa-triangle-exclamation"></i> <strong>Premissas simplificadas:</strong> este simulador usa fração de tributos substituídos × fator do ano
-        (2026: 10%, 2027: 40%, 2029-32: 70%, 2033: 100%) e não considera CPP, ICMS-ST, benefícios fiscais, NCM específico nem split payment.
-        Use como triagem — a decisão formal exige conciliação dos XMLs e validação do contador.
+        <i class="fa-solid fa-triangle-exclamation"></i> <strong>Premissas simplificadas e declaradas:</strong> este simulador usa <strong>parcela média de IBS/CBS no DAS por anexo para 2027</strong> (sem tabela oficial publicada — os percentuais exatos variam por faixa na LC 214/2025) e não considera CPP, ICMS-ST, sublimite de R$ 3,6 mi, benefícios/NCM específicos, regimes específicos, créditos presumidos nem split payment. Valores de IBS/CBS no regime regular, por lei, não integram a receita bruta do Simples. Use como triagem — a decisão formal exige conciliação dos XMLs/PGDAS e validação do contador.
       </div>
     </div>
 
@@ -1402,43 +1403,46 @@
     <div class="info-section" id="info-legal">
       
       <div class="info-card">
-        <h3><i class="fa-solid fa-clock-rotate-left text-accent"></i> Cronograma da Reforma (EC 132/2023)</h3>
+        <h3><i class="fa-solid fa-clock-rotate-left text-accent"></i> Cronograma da Reforma (EC 132/2023 + LC 214/2025)</h3>
         <div class="timeline">
           <div class="timeline-step">
             <span class="timeline-dot" id="dot2026">26</span>
             <div>
-              <strong>2026 — Ano Teste:</strong> CBS 0,9% e IBS 0,1%. Alíquotas recolhidas com compensação integral no PIS/Cofins.
+              <strong>2026 — Ano Teste (arts. 343/346 LC 214):</strong> CBS 0,9% e IBS 0,1% com compensação em PIS/Cofins. ISS/ICMS integrais. Valida sistemas e NF-e com campos IBS/CBS.
             </div>
           </div>
           <div class="timeline-step">
             <span class="timeline-dot active" id="dot2027">27</span>
             <div>
-              <strong>2027 — CBS Plena & Fim PIS/Cofins:</strong> Extinção do PIS/Cofins. Opção pelo recolhimento da CBS por fora do DAS. ICMS e ISS continuam normais.
+              <strong>2027-2028 — CBS Plena & Fim PIS/Cofins:</strong> CBS integral (ref. em calibragem). IBS segue 0,1% teste. ICMS e ISS 100% vigentes. Opção híbrida art. 41, §3º LC 214.
             </div>
           </div>
           <div class="timeline-step">
             <span class="timeline-dot" id="dot2029">29</span>
             <div>
-              <strong>2029 a 2032 — Transição do IBS:</strong> Redução gradativa do ICMS e ISS à razão de 1/10 ao ano, substituídos pelo IBS.
+              <strong>2029 a 2032 — Transição do IBS:</strong> ISS/ICMS caem 10 p.p./ano (90%>80%>70%>60%), IBS assume na mesma proporção. Exige lei local p/ alíquota própria.
             </div>
           </div>
           <div class="timeline-step">
             <span class="timeline-dot" id="dot2033">33</span>
             <div>
-              <strong>2033 — Regime Pleno Definitivo:</strong> Extinção total de ICMS/ISS. Vigência plena do IVA Dual (CBS + IBS).
+              <strong>2033 — Regime Pleno:</strong> Extinção ICMS/ISS/PIS/Cofins. IVA Dual pleno (~26,5% teto legal). Distribuição IBS por destino + coeficiente de participação.
             </div>
           </div>
         </div>
       </div>
 
       <div class="info-card">
-        <h3><i class="fa-solid fa-scale-balanced text-emerald"></i> Regras da Resolução CGSN 186/2026</h3>
+        <h3><i class="fa-solid fa-scale-balanced text-emerald"></i> Regras CGSN 186/2026 + 190/191/2026</h3>
         <ul style="font-size: 0.84rem; color: var(--slate-600); padding-left: 1.2rem; line-height: 1.7;">
-          <li><strong>Janela Inflexível de Opção:</strong> De 1º a 30 de setembro de 2026 no Portal do Simples Nacional.</li>
-          <li><strong>Direito de Arrependimento:</strong> Cancelamento permitido impreterivelmente até 30 de novembro de 2026.</li>
-          <li><strong>Efeito Jurídico:</strong> Válido para o 1º semestre do ano-calendário de 2027.</li>
-          <li><strong>Opção Tácita (Default):</strong> Quem não se manifestar permanece automaticamente 100% no DAS.</li>
-          <li><strong>Vedações:</strong> O Microempreendedor Individual (MEI) está legalmente impedido de optar pelo regime híbrido.</li>
+          <li><strong>Janela 1º sem/2027:</strong> 01 a 30/09/2026 no Portal do Simples Nacional (art. 41, §§3º-4º LC 214/2025).</li>
+          <li><strong>Arrependimento:</strong> cancelamento irretratável até 30/11/2026. CGSN pode postergar se alíquota CBS atrasar.</li>
+          <li><strong>Efeito:</strong> jan-jun/2027. <strong>2º sem/2027:</strong> opção 01-31/03/2027 p/ jul-dez/2027 (cancela até 31/05). Depois: janelas mar/set a cada semestre.</li>
+          <li><strong>Continuidade:</strong> quem opta pelo regular continua nos períodos seguintes salvo renúncia expressa (Res. 190/2026).</li>
+          <li><strong>Default:</strong> sem manifestação, IBS/CBS ficam no DAS. Não é penalidade — custo é de competitividade (menos crédito p/ cliente).</li>
+          <li><strong>Sublimite R$ 3,6 mi:</strong> acima dele, IBS sai do DAS por imposição (ICMS/ISS fora), CBS permanece. Diferente da opção voluntária IBS+CBS juntos.</li>
+          <li><strong>RBT:</strong> valores de IBS/CBS no regime regular não integram receita bruta do Simples.</li>
+          <li><strong>MEI (SIMEI):</strong> rito próprio, fora do híbrido.</li>
         </ul>
       </div>
 
@@ -1469,7 +1473,7 @@
           <i class="fa-solid fa-chevron-down"></i>
         </div>
         <div class="faq-a">
-          A alíquota de referência da CBS (estimada pelo Ministério da Fazenda em torno de 8,8%) ainda depende de fixação definitiva pelo Senado Federal após a aprovação final da Lei Complementar do IBS/CBS. Por isso, a ferramenta permite testar livremente cenários de 7,0% a 10,0% ou mais para avaliar a sensibilidade do seu modelo de negócios.
+          A LC 214/2025 prevê alíquota de referência fixada por Resolução do Senado após cálculo do TCU. Cronograma 2026: metodologia ao TCU até 14/09, TCU até 30/10, Senado até 15/12. Mercado estima 8,8%-9,3% para CBS 2027; CGIBS usou 9,21% CBS + 18,70% IBS = 27,91% só para orçamento 2027 (acima do teto legal de 26,5% — exige PLP redutor). Por isso a ferramenta permite testar 8,80%, 9,21% e cenários conservadores.
         </div>
       </div>
 
@@ -1489,7 +1493,7 @@
           <i class="fa-solid fa-chevron-down"></i>
         </div>
         <div class="faq-a">
-          Quando uma empresa do Simples Nacional vende mantendo-se 100% no DAS, o comprador PJ no regime regular (Lucro Real ou Presumido) só pode se creditar do montante de IBS/CBS efetivamente pago dentro do DAS (fração de 15% a 49% da alíquota do Simples). Já se a empresa optar pelo Modelo Híbrido, o cliente PJ toma 100% de crédito da alíquota de referência (8,80% em 2027 ou ~26,50% em 2033), tornando o produto do Simples comercialmente mais competitivo.
+          No DAS (art. 41 LC 214/2025), o comprador do regime regular só se credita do IBS/CBS efetivamente pago no DAS (parcela média ~14-16% da guia em 2027). No híbrido, toma crédito integral da alíquota de referência (8,80%+0,10%=8,90% em 2027; ~26,5% no pleno). Ex. distribuidora R$100 mil, 60% B2B: crédito DAS ~R$821 vs híbrido R$5.280 — diferença de R$4.459 que decide a competitividade.
         </div>
       </div>
 
@@ -1522,7 +1526,27 @@
           <i class="fa-solid fa-chevron-down"></i>
         </div>
         <div class="faq-a">
-          O simulador aplica a fórmula oficial da Lei Complementar 123/2006: <code>(RBT12 × Alíquota Nominal - Parcela a Deduzir) ÷ RBT12</code>, verificando o anexo aplicável (I, II, III, IV ou V) e deduzindo exatamente o percentual de partição dos tributos substituídos (PIS, COFINS, ICMS ou ISS) estabelecido na tabela da legislação para cada faixa. Em seguida aplica o <strong>fator do ano</strong> (2026: 10%, 2027: 40%, 2029-32: 70%, 2033: 100%) como premissa simplificada da transição — confirme com seu contador, pois NCM, benefícios e CPP podem alterar a fração real.
+          Aplica a fórmula oficial da LC 123/2006: <code>(RBT12 × Alíquota Nominal - Parcela a Deduzir) ÷ RBT12</code> por anexo/faixa. A <strong>parcela IBS/CBS que sai no híbrido</strong> é estimativa média editável (ex. 15,5% Anexo I em 2027 = só PIS/Cofins), pois os percentuais exatos variam por faixa (LC 214/2025) e não há tabela oficial publicada. Não considera NCM com redução, regimes específicos, CPP, ICMS-ST ou sublimite — confirme com seu contador.
+        </div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">
+          <span>E se eu perder setembro? Há janela para o 2º semestre de 2027?</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-a">
+          Sim. Quem não optar em 01-30/09/2026 fica no DAS em jan-jun/2027 e pode optar em <strong>01-31/03/2027 para jul-dez/2027</strong> (cancelamento até 31/05). Quem optou em setembro continua no regular salvo renúncia expressa (Res. CGSN 190/2026). A partir de 2027, janelas em março e setembro a cada semestre.
+        </div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">
+          <span>Ultrapassei R$ 3,6 mi (sublimite). É o mesmo híbrido?</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-a">
+          Não. Acima do sublimite, o <strong>IBS sai do DAS por imposição</strong> (ICMS/ISS fora) e a <strong>CBS permanece</strong> no DAS. No híbrido voluntário (art. 41, §3º), <strong>IBS e CBS saem juntos</strong>. Misturar as duas regras é o erro mais comum — valide o enquadramento antes de simular.
         </div>
       </div>
 
@@ -1532,7 +1556,7 @@
           <i class="fa-solid fa-chevron-down"></i>
         </div>
         <div class="faq-a">
-          Não. É uma ferramenta de <strong>triagem educacional</strong>. Ela não considera CPP, ICMS-ST, sublimites estaduais, benefícios fiscais por NCM, créditos presumidos nem split payment. Use o relatório impresso como ponto de partida e valide a opção de setembro/2026 com conciliação dos XMLs dos últimos 6 meses e assessoria contábil.
+          Não. É <strong>triagem educacional com estimativas declaradas</strong>. Não classifica NCM a NCM (Anexo I LC 214 cesta básica alíquota zero com manutenção de créditos), não separa B2B/B2C nota a nota, nem considera sazonalidade, regimes específicos ou perfil de fornecedores. Use o relatório impresso como ponto de partida e valide a opção com XMLs + PGDAS dos últimos 6 meses e assessoria contábil. Leitura de cadeia: se (crédito extra – custo extra) &gt; 0,5% da receita, pende p/ híbrido; se &lt; -0,5%, pende p/ DAS; entre, decisão apertada.
         </div>
       </div>
 
@@ -1542,15 +1566,21 @@
 
   <footer class="no-print">
     <p><strong>TaxReform | IBS/CBS Simples Nacional Pro</strong> — Desenvolvido para publicação em GitHub Pages</p>
-    <p style="margin-top: 4px; color: var(--slate-600);">Modelagem com base na Lei Complementar 123/2006, Emenda Constitucional 132/2023, PLP 68/2024 e Resolução CGSN 186/2026.</p>
-    <p style="margin-top:8px;font-size:0.76rem;color:var(--slate-600);max-width:900px;margin-left:auto;margin-right:auto;">Aviso legal: conteúdo educacional, sem caráter de consultoria tributária ou jurídica. Alíquotas de CBS/IBS ainda sujeitas a regulamentação do Senado. Confirme prazos e vedações (inclusive MEI) no Portal do Simples Nacional.</p>
+    <p style="margin-top: 4px; color: var(--slate-600);">Modelagem com base na Lei Complementar 123/2006, Emenda Constitucional 132/2023, Lei Complementar 214/2025 (conversão do PLP 68/2024), LC 227/2026 e Resoluções CGSN 186/2026, 190 e 191/2026.</p>
+    <p style="margin-top:8px;font-size:0.76rem;color:var(--slate-600);max-width:900px;margin-left:auto;margin-right:auto;">Aviso legal: conteúdo educacional, sem caráter de consultoria tributária ou jurídica. Alíquota de referência da CBS em calibragem (TCU até 30/10, Senado até 15/12/2026). Parcela de IBS/CBS no DAS é estimativa média por anexo — os percentuais exatos variam por faixa (LC 214/2025) e não há tabela oficial publicada. Não considera reduções por NCM, regimes específicos, CPP, ICMS-ST, sublimite de R$ 3,6 mi, créditos presumidos nem split payment. Confirme prazos e vedações (inclusive MEI) no Portal do Simples Nacional.</p>
   </footer>
 
   <!-- Script da Calculadora Oficial e Proteção -->
   <script>
     /* ============================================================
-     * TABELAS OFICIAIS DA LEI COMPLEMENTAR 123/2006
+     * TABELAS OFICIAIS DA LC 123/2006 (alíquota nominal + dedução)
+     * partExtintos = fração TOTAL eventualmente substituída em 2033
+     * (PIS/Cofins+ICMS/ISS/IPI). NÃO usar direto p/ 2027.
+     * Em 2027 só PIS/Cofins viram CBS → usar PARCELA_MEDIA_2027 abaixo.
      * ============================================================ */
+    const PARCELA_MEDIA_2027 = {
+      anexo1: 15.5, anexo2: 15.0, anexo3: 14.5, anexo4: 16.0, anexo5: 14.0
+    };
     const TABELAS_SIMPLES = {
       anexo1: {
         nome: "Comércio (Anexo I)",
@@ -1610,36 +1640,35 @@
     };
 
     /* ============================================================
-     * CENÁRIOS TEMPORAIS DA REFORMA TRIBUTÁRIA
+     * CENÁRIOS TEMPORAIS DA REFORMA (EC 132/2023 + LC 214/2025)
+     * 2026: art. 343/346 LC 214 — teste 0,9% CBS + 0,1% IBS, com compensação.
+     * 2027-28: CBS plena (~8,8% ref. em calibragem) + IBS teste 0,1%.
+     * 2029-32: IBS entra em degraus (ISS cai 10 p.p./ano). 2033: pleno.
      * ============================================================ */
     const CENARIOS_ANOS = {
       '2026': {
         nome: '2026 (Ano Teste)',
         cbsPadrao: 0.9,
         ibsPadrao: 0.1,
-        fatorFracaoDAS: 0.10,
-        nota: 'Ano de teste piloto (CBS 0,9% + IBS 0,1%). Os tributos atuais continuam vigentes com compensação integral.'
+        nota: 'Ano-teste LC 214/2025 (arts. 343/346): CBS 0,9% + IBS 0,1% com compensação em PIS/Cofins. ISS/ICMS integrais. Sem opção híbrida relevante.'
       },
       '2027': {
         nome: '2027 (CBS Plena & Fim PIS/Cofins)',
         cbsPadrao: 8.8,
         ibsPadrao: 0.1,
-        fatorFracaoDAS: 0.40,
-        nota: 'Entrada da CBS integral e extinção do PIS/Cofins. ICMS e ISS continuam no DAS. Opção de recolher a CBS por fora.'
+        nota: 'CBS plena substitui PIS/Cofins (alíquota ref. em calibragem TCU/Senado, mercado 8,8%-9,3%). IBS teste 0,1%. ICMS/ISS integrais. Opção híbrida art. 41, §3º LC 214/2025: janela 01-30/09/2026 p/ jan-jun/2027.'
       },
       '2029': {
         nome: '2029-2032 (Transição do IBS)',
         cbsPadrao: 8.8,
-        ibsPadrao: 8.7,
-        fatorFracaoDAS: 0.70,
-        nota: 'Redução gradual de ICMS/ISS à razão de 10% ao ano, gradativamente substituídos pelo IBS.'
+        ibsPadrao: 1.77,
+        nota: 'Exemplo degrau inicial 2029 (~1,77% cota municipal). ISS cai 90%>80%>70%>60%, IBS sobe na mesma proporção. Prefeitura deve fixar alíquota própria — sem lei, vale referência. Projeção didática, não definitiva.'
       },
       '2033': {
         nome: '2033 (Regime Pleno Definitivo)',
         cbsPadrao: 8.8,
         ibsPadrao: 17.7,
-        fatorFracaoDAS: 1.00,
-        nota: 'IVA Dual (CBS + IBS) plenamente instaurado. ICMS, ISS, PIS e Cofins 100% extintos.'
+        nota: 'IVA Dual pleno (~26,5% = 8,8% CBS + 17,7% IBS, teto legal LC 214/2025). ICMS/ISS/PIS/Cofins extintos. CGIBS citou 27,91% só p/ orçamento 2027 — acima do teto, exige PLP redutor.'
       }
     };
 
@@ -1658,6 +1687,10 @@
       // Aplica padrões do ano selecionado
       setPresetCBS(cenario.cbsPadrao);
       setPresetIBS(cenario.ibsPadrao);
+
+      // Re-preenche fração média do novo cenário (auto), preservando edição manual posterior
+      const fSlider = document.getElementById('fracaoDAS');
+      if (fSlider) fSlider.dataset.auto = "true";
 
       // Atualiza visualização na linha do tempo
       ['2026', '2027', '2029', '2033'].forEach(y => {
@@ -1757,6 +1790,8 @@
     });
 
     function handleAnexoChange() {
+      const fSlider = document.getElementById('fracaoDAS');
+      if (fSlider) fSlider.dataset.auto = "true";
       calculate();
     }
 
@@ -1770,6 +1805,8 @@
       document.getElementById('comprasSN').value = '15';
       document.getElementById('folha').value = '22';
       document.getElementById('custoConformidade').value = '800';
+      const fSlider = document.getElementById('fracaoDAS');
+      if (fSlider) fSlider.dataset.auto = "true";
       setYear('2027');
       showToast('Valores padrões restaurados.');
     }
@@ -1837,15 +1874,21 @@
 
       document.getElementById('aliqEfetivaBadge').innerText = `Alíquota Efetiva: ${(aliqEfetivaDAS * 100).toFixed(2).replace('.', ',')}%`;
 
-      // Fração Oficial de Tributos Substituídos
+      // Fração de IBS/CBS no DAS — ESTIMATIVA editável (sem tabela oficial publicada).
+      // Não aplicar mais "fator do ano". Em 2027 = só PIS/Cofins → CBS.
       const cenario = CENARIOS_ANOS[selectedYear];
-      const particaoOficial = faixa.partExtintos * cenario.fatorFracaoDAS;
       const fracaoDASSlider = document.getElementById('fracaoDAS');
-      
-      // Sincroniza slider com cálculo oficial
-      fracaoDASSlider.value = Math.round(particaoOficial * 100);
-      document.getElementById('fracaoDASVal').innerText = Math.round(particaoOficial * 100) + '%';
-      const fracaoEfetivaSubstituida = particaoOficial;
+      // Auto-preenchimento apenas quando anexo/ano muda (flag), nunca sobrescreve edição manual dentro do calculate
+      if (fracaoDASSlider.dataset.auto === "true") {
+        let base = (PARCELA_MEDIA_2027[anexoKey] || 15.5);
+        // Ajuste didático p/ outros horizontes: 2026 ~ teste, 2029-32 parcial ICMS/ISS, 2033 total
+        if (selectedYear === '2026') base = Math.min(base * 0.2, 5);
+        if (selectedYear === '2029') base = Math.min(base + 20, 40);
+        if (selectedYear === '2033') base = (faixa.partExtintos * 100);
+        fracaoDASSlider.value = base.toFixed(1);
+      }
+      const fracaoEfetivaSubstituida = Math.max(0, (parseFloat(String(fracaoDASSlider.value).replace(',', '.')) || 0) / 100);
+      document.getElementById('fracaoDASVal').innerText = (fracaoEfetivaSubstituida * 100).toFixed(1).replace('.', ',') + '%';
 
       // 1. Cenário: 100% no DAS
       const dasNormal = receita * aliqEfetivaDAS;
@@ -2013,6 +2056,7 @@
       if (document.getElementById('comprasSN')) params.set('comprasSN', document.getElementById('comprasSN').value);
       params.set('folha', document.getElementById('folha').value);
       params.set('conf', document.getElementById('custoConformidade').value);
+      if (document.getElementById('fracaoDAS')) params.set('fracao', document.getElementById('fracaoDAS').value);
       const newUrl = window.location.pathname + '?' + params.toString();
       window.history.replaceState({}, '', newUrl);
     }
@@ -2096,7 +2140,18 @@
 
     // Inicializar na carga da página
     document.addEventListener('DOMContentLoaded', () => {
+      const fSlider = document.getElementById('fracaoDAS');
+      if (fSlider) {
+        if (!fSlider.dataset.auto) fSlider.dataset.auto = "true";
+        fSlider.addEventListener('input', function() { this.dataset.auto = "false"; });
+      }
       loadUrlParams();
+      // Se URL trouxe fração, respeita manual
+      const params = new URLSearchParams(window.location.search);
+      if (params.has('fracao') && fSlider) {
+        fSlider.value = params.get('fracao');
+        fSlider.dataset.auto = "false";
+      }
       calculate();
     });
   </script>
