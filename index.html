@@ -1672,9 +1672,18 @@
       }
     };
 
+    /* Fix 9 — ponto único de edição/versionamento (edite aqui, reflete no print) */
+    const CONFIG = {
+      VERSAO: '2026-09-21-fix1-11',
+      TETO_IVA_LEGAL: 26.5,
+      FONTES: 'LC 123/06 • EC 132/23 • LC 214/25 • CGSN 186/190/191-26',
+      CBS_REF_CALIBRAGEM: 'TCU até 30/10, Senado até 15/12/2026'
+    };
+
     let selectedYear = '2027';
 
     function setYear(year) {
+      if (!CENARIOS_ANOS[year]) { console.warn('Ano inválido:', year); return; }
       selectedYear = year;
       document.querySelectorAll('.year-btn').forEach(btn => {
         btn.classList.toggle('active', btn.innerText.includes(year));
@@ -1773,7 +1782,22 @@
     }
 
     function formatBRL(val) {
+      if (!isFinite(val)) return 'R$ —';
       return val.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    }
+
+    /* parseBR: aceita "100.000,50" | "100000,50" | "100.000" | "8,8" | "8.8" */
+    function parseBR(val) {
+      if (typeof val === 'number') return isFinite(val) ? val : 0;
+      let s = String(val ?? '').trim().replace(/\s/g, '').replace(/R\$/g, '');
+      if (!s) return 0;
+      if (s.includes(',')) {
+        s = s.replace(/\./g, '').replace(',', '.');
+      } else if (/^\d{1,3}(\.\d{3})+$/.test(s)) {
+        s = s.replace(/\./g, '');
+      }
+      const n = parseFloat(s);
+      return isFinite(n) ? n : 0;
     }
 
     function handleReceitaInput() {
@@ -1823,13 +1847,24 @@
      * ============================================================ */
     function calculate() {
       let anexoKey = document.getElementById('anexo').value;
-      const receita = Math.max(0, parseFloat(document.getElementById('receita').value) || 0);
-      const rbt12 = Math.max(receita, parseFloat(document.getElementById('rbt12').value) || (receita * 12));
-      const pctB2B = (parseFloat(document.getElementById('vendasB2B').value) || 0) / 100;
-      const pctCompras = (parseFloat(document.getElementById('comprasCredito').value) || 0) / 100;
-      const pctComprasSN = (parseFloat(document.getElementById('comprasSN') ? document.getElementById('comprasSN').value : 0) || 0) / 100;
-      const pctFolha = (parseFloat(document.getElementById('folha').value) || 0) / 100;
-      const custoConformidade = Math.max(0, parseFloat(document.getElementById('custoConformidade').value) || 0);
+      if (!TABELAS_SIMPLES[anexoKey]) anexoKey = 'anexo1';
+      const receita = Math.max(0, parseBR(document.getElementById('receita').value));
+      let rbtRaw = parseBR(document.getElementById('rbt12').value);
+      if (!isFinite(rbtRaw) || rbtRaw <= 0) rbtRaw = receita * 12;
+      const rbt12 = Math.max(receita, rbtRaw);
+      // Fix 2: sem receita/RBT12 válidos não há diagnóstico — evita NaN (0/0)
+      if (!(receita > 0) || !(rbt12 > 0)) {
+        document.getElementById('faixaApuradaText').innerText = 'Informe receita e RBT12 > 0';
+        document.getElementById('aliqEfetivaBadge').innerText = 'Alíquota Efetiva: —';
+        ['dasNormalVal','dasReduzidoVal','ibsCbsLiquidoVal','conformidadeVal','custoDASVal','custoHibridoVal','creditoDASVal','creditoHibridoVal'].forEach(id => { const el = document.getElementById(id); if (el) el.innerText = 'R$ —'; });
+        const bv = document.getElementById('breakevenVal'); if (bv) bv.innerText = '--% (informe a receita)';
+        return;
+      }
+      const pctB2B = clampNum(document.getElementById('vendasB2B').value, 0, 100, 0) / 100;
+      const pctCompras = clampNum(document.getElementById('comprasCredito').value, 0, 100, 0) / 100;
+      const pctComprasSN = clampNum(document.getElementById('comprasSN') ? document.getElementById('comprasSN').value : 0, 0, 100, 0) / 100;
+      const pctFolha = clampNum(document.getElementById('folha').value, 0, 100, 0) / 100;
+      const custoConformidade = Math.max(0, parseBR(document.getElementById('custoConformidade').value));
 
       // Alíquotas Editáveis de CBS e IBS (2 casas decimais)
       const valCBS = parsePct(document.getElementById('aliqCBS').value);
@@ -1848,15 +1883,17 @@
       document.getElementById('folhaVal').innerText = Math.round(pctFolha * 100) + '%';
       document.getElementById('fatorRLabel').innerText = `Fator R: ${Math.round(pctFolha * 100)}% (${pctFolha >= 0.28 ? 'Anexo III elegível' : 'Anexo V aplicável'})`;
 
-      // Regra de transição automática do Fator R (se Anexo III e folha < 28%, orienta para Anexo V)
-      if (anexoKey === 'anexo3' && pctFolha < 0.28) {
-        document.getElementById('anexoSubtext').innerText = 'Fator R < 28% (Regra Anexo V)';
+      // Fix 3 — Fator R: Anexo III com folha < 28% calcula pelo Anexo V (LC 123)
+      const fatorRForcaAnexoV = (anexoKey === 'anexo3' && pctFolha < 0.28);
+      const anexoCalcKey = fatorRForcaAnexoV ? 'anexo5' : anexoKey;
+      if (fatorRForcaAnexoV) {
+        document.getElementById('anexoSubtext').innerText = 'Fator R < 28%: cálculo automático pelo Anexo V';
       } else {
         document.getElementById('anexoSubtext').innerText = TABELAS_SIMPLES[anexoKey].nome;
       }
 
       // Encontrar Faixa na Tabela Oficial da LC 123/2006
-      const tabela = TABELAS_SIMPLES[anexoKey];
+      const tabela = TABELAS_SIMPLES[anexoCalcKey];
       let faixaIndex = 0;
       for (let i = 0; i < tabela.faixas.length; i++) {
         if (rbt12 <= tabela.faixas[i].limite || i === tabela.faixas.length - 1) {
@@ -1880,15 +1917,16 @@
       const fracaoDASSlider = document.getElementById('fracaoDAS');
       // Auto-preenchimento apenas quando anexo/ano muda (flag), nunca sobrescreve edição manual dentro do calculate
       if (fracaoDASSlider.dataset.auto === "true") {
-        let base = (PARCELA_MEDIA_2027[anexoKey] || 15.5);
+        // Fix 9/10 — ponto único de edição; 2029 sem tabela oficial: estimativa didática, exige validação manual
+        let base = (PARCELA_MEDIA_2027[anexoCalcKey] || 15.5);
         // Ajuste didático p/ outros horizontes: 2026 ~ teste, 2029-32 parcial ICMS/ISS, 2033 total
         if (selectedYear === '2026') base = Math.min(base * 0.2, 5);
-        if (selectedYear === '2029') base = Math.min(base + 20, 40);
+        if (selectedYear === '2029') { base = Math.min(base + 15, 38); /* AJUSTE_2029_DIDATICO=15 — sem base na LC 214, valide com contador */ }
         if (selectedYear === '2033') base = (faixa.partExtintos * 100);
         fracaoDASSlider.value = base.toFixed(1);
       }
-      const fracaoEfetivaSubstituida = Math.max(0, (parseFloat(String(fracaoDASSlider.value).replace(',', '.')) || 0) / 100);
-      document.getElementById('fracaoDASVal').innerText = (fracaoEfetivaSubstituida * 100).toFixed(1).replace('.', ',') + '%';
+      const fracaoEfetivaSubstituida = Math.max(0, (parseBR(fracaoDASSlider.value) || 0) / 100);
+      document.getElementById('fracaoDASVal').innerText = (fracaoEfetivaSubstituida * 100).toFixed(1).replace('.', ',') + '%' + (selectedYear === '2029' ? ' (estimativa — valide)' : '');
 
       // 1. Cenário: 100% no DAS
       const dasNormal = receita * aliqEfetivaDAS;
@@ -1906,7 +1944,10 @@
       const aliqCreditoSN = aliqEfetivaDAS * fracaoEfetivaSubstituida;
       const creditoInsumosSN = (receita * pctComprasSN) * aliqCreditoSN;
       const creditoInsumos = creditoInsumosRegular + creditoInsumosSN;
-      const ibsCbsLiquido = Math.max(0, debitoIBSCBS - creditoInsumos);
+      // Fix 7 — permite saldo credor (sem zerar): negativo = a compensar/ressarcir
+      const ibsCbsLiquido = debitoIBSCBS - creditoInsumos;
+      const saldoACompensar = Math.max(0, -ibsCbsLiquido);
+      const ibsCbsExibido = Math.max(0, ibsCbsLiquido);
       const custoProprioHibrido = dasReduzido + ibsCbsLiquido + custoConformidade;
       // Crédito transferido no Híbrido (Integral sobre as vendas B2B)
       const creditoHibrido = receita * pctB2B * aliqIVA;
@@ -1917,8 +1958,9 @@
       const ganhoLiquidoOperacao = deltaCreditoTransferido - deltaCustoProprio;
 
       // 4. Cálculo do Ponto de Equilíbrio (Break-Even de Vendas B2B)
+      // Fix 6 — se margem <= 0, nem 100% B2B cobre: Infinity cai no ramo ">100% inviável"
       const margemCreditoUnitario = aliqIVA - (aliqEfetivaDAS * fracaoEfetivaSubstituida);
-      let breakEvenPct = 0;
+      let breakEvenPct = Infinity;
       if (margemCreditoUnitario > 0 && receita > 0) {
         breakEvenPct = Math.max(0, (deltaCustoProprio / (receita * margemCreditoUnitario)) * 100);
       }
@@ -1932,7 +1974,7 @@
         document.getElementById('creditoInsumosDetail').innerText =
           `Créditos: regular ${formatBRL(creditoInsumosRegular)} (integral ${fmtPct2(aliqIVAPercent)}) + Simples ${formatBRL(creditoInsumosSN)} (reduzido ${fmtPct2(aliqCreditoSN * 100)}) = ${formatBRL(creditoInsumos)}.${avisoSoma}`;
       }
-      document.getElementById('ibsCbsLiquidoVal').innerText = formatBRL(ibsCbsLiquido);
+      document.getElementById('ibsCbsLiquidoVal').innerText = saldoACompensar > 0 ? `${formatBRL(0)} (saldo ${formatBRL(saldoACompensar)} a compensar)` : formatBRL(ibsCbsExibido);
       document.getElementById('conformidadeVal').innerText = formatBRL(custoConformidade);
       document.getElementById('custoDASVal').innerText = formatBRL(custoProprioDAS);
       document.getElementById('custoHibridoVal').innerText = formatBRL(custoProprioHibrido);
@@ -2013,17 +2055,20 @@
       const verdictDesc = document.getElementById('verdictDesc');
       const insightText = document.getElementById('insightText');
 
-      if (pctB2B * 100 >= breakEvenPct && pctB2B >= 0.40 && ganhoLiquidoOperacao > 0) {
+      // Fix 11 — veredito pela conta, sem pisos mágicos: híbrido se ganho>0 e B2B>=break-even.
+      // Zona apertada: |ganho| <= 0,5% da receita (mesmo do FAQ). Margem documentada.
+      const MARGEM_ZONA_APERTADA = 0.005;
+      if (ganhoLiquidoOperacao > 0 && (pctB2B * 100) >= breakEvenPct) {
         verdictBox.className = 'verdict-box hibrido';
         verdictBadge.innerText = 'Recomendação Comercial';
         verdictTitle.innerText = 'Migrar para o Modelo Híbrido (IBS/CBS por Fora)';
         verdictDesc.innerText = `Com CBS em ${fmtPct2(valCBS)} e IBS em ${fmtPct2(valIBS)}, o ganho de competitividade B2B (+${formatBRL(deltaCreditoTransferido)}) supera o custo extra tributário (+${formatBRL(deltaCustoProprio)}).`;
         insightText.innerHTML = `<strong>Vantagem Competitiva:</strong> Seus clientes PJ economizarão <strong>${formatBRL(deltaCreditoTransferido)}</strong> a mais em créditos por mês comprando de sua empresa. O break-even de vendas PJ foi superado, tornando a opção estratégica ideal para preservar clientes do Lucro Real/Presumido.`;
-      } else if (Math.abs(ganhoLiquidoOperacao) < (receita * 0.012) && pctB2B >= 0.35) {
+      } else if (Math.abs(ganhoLiquidoOperacao) <= (receita * MARGEM_ZONA_APERTADA)) {
         verdictBox.className = 'verdict-box apertado';
         verdictBadge.innerText = 'Atenção / Zona Crítica';
         verdictTitle.innerText = 'Decisão Apertada — Sensível à Alíquota e NCM';
-        verdictDesc.innerText = `A diferença entre os cenários é inferior a 1,2% da receita. Pequenas oscilações na alíquota da CBS (${fmtPct2(valCBS)}) ou no mix de insumos definirão o resultado.`;
+        verdictDesc.innerText = `A diferença entre os cenários é de até 0,5% da receita (margem de tolerância). Pequenas oscilações na alíquota da CBS (${fmtPct2(valCBS)}) ou no mix de insumos definirão o resultado.`;
         insightText.innerHTML = `<strong>Recomendação Técnica:</strong> Solicite ao seu contador uma auditoria de NCM nos XMLs dos últimos 6 meses. Se a CBS for fixada abaixo de ${fmtPct2(valCBS)}, a atratividade do modelo híbrido aumentará.`;
       } else {
         verdictBox.className = 'verdict-box das';
@@ -2034,7 +2079,7 @@
       }
 
       // Atualiza dados no Cabeçalho de Impressão
-      document.getElementById('printMetaInfo').innerText = `Emitido em: ${new Date().toLocaleDateString('pt-BR')} | Empresa: ${tabela.nome} | RBT12: ${formatBRL(rbt12)} | CBS: ${fmtPct2(valCBS)} | IBS: ${fmtPct2(valIBS)} | Cenário: ${cenario.nome} | Compras Regular: ${Math.round(pctCompras*100)}% / SN: ${Math.round(pctComprasSN*100)}%`;
+      document.getElementById('printMetaInfo').innerText = `Emitido em: ${new Date().toLocaleDateString('pt-BR')} | ${CONFIG.FONTES} | v${CONFIG.VERSAO} | Empresa: ${tabela.nome}${fatorRForcaAnexoV ? ' (calc Anexo V)' : ''} | RBT12: ${formatBRL(rbt12)} | CBS: ${fmtPct2(valCBS)} | IBS: ${fmtPct2(valIBS)} | Cenário: ${cenario.nome} | Compras Regular: ${Math.round(pctCompras*100)}% / SN: ${Math.round(pctComprasSN*100)}%`;
 
       // Atualiza URL State
       syncUrlParams();
@@ -2061,22 +2106,44 @@
       window.history.replaceState({}, '', newUrl);
     }
 
+    function clampNum(v, min, max, fallback) {
+      const n = parseFloat(v);
+      if (!isFinite(n)) return fallback;
+      return Math.min(max, Math.max(min, n));
+    }
+
     function loadUrlParams() {
-      const params = new URLSearchParams(window.location.search);
-      if (params.has('ano')) setYear(params.get('ano'));
-      if (params.has('cbs')) setPresetCBS(parseFloat(params.get('cbs')));
-      if (params.has('ibs')) setPresetIBS(parseFloat(params.get('ibs')));
-      if (params.has('anexo')) document.getElementById('anexo').value = params.get('anexo');
-      if (params.has('rec')) document.getElementById('receita').value = params.get('rec');
-      if (params.has('rbt')) {
-        document.getElementById('rbt12').value = params.get('rbt');
-        document.getElementById('rbt12').dataset.manual = "true";
-      }
-      if (params.has('b2b')) document.getElementById('vendasB2B').value = params.get('b2b');
-      if (params.has('compras')) document.getElementById('comprasCredito').value = params.get('compras');
-      if (params.has('comprasSN') && document.getElementById('comprasSN')) document.getElementById('comprasSN').value = params.get('comprasSN');
-      if (params.has('folha')) document.getElementById('folha').value = params.get('folha');
-      if (params.has('conf')) document.getElementById('custoConformidade').value = params.get('conf');
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const ANOS_VALIDOS = ['2026', '2027', '2029', '2033'];
+        const ANEXOS_VALIDOS = ['anexo1', 'anexo2', 'anexo3', 'anexo4', 'anexo5'];
+        if (params.has('ano')) {
+          const ano = params.get('ano');
+          if (ANOS_VALIDOS.includes(ano)) setYear(ano);
+        }
+        if (params.has('cbs')) {
+          const v = clampNum(params.get('cbs'), 0, 30, NaN);
+          if (isFinite(v)) setPresetCBS(v);
+        }
+        if (params.has('ibs')) {
+          const v = clampNum(params.get('ibs'), 0, 30, NaN);
+          if (isFinite(v)) setPresetIBS(v);
+        }
+        if (params.has('anexo')) {
+          const a = params.get('anexo');
+          if (ANEXOS_VALIDOS.includes(a)) document.getElementById('anexo').value = a;
+        }
+        if (params.has('rec')) document.getElementById('receita').value = clampNum(params.get('rec'), 0, 100000000, 100000);
+        if (params.has('rbt')) {
+          document.getElementById('rbt12').value = clampNum(params.get('rbt'), 0, 4800000, 1200000);
+          document.getElementById('rbt12').dataset.manual = "true";
+        }
+        if (params.has('b2b')) document.getElementById('vendasB2B').value = clampNum(params.get('b2b'), 0, 100, 65);
+        if (params.has('compras')) document.getElementById('comprasCredito').value = clampNum(params.get('compras'), 0, 100, 40);
+        if (params.has('comprasSN') && document.getElementById('comprasSN')) document.getElementById('comprasSN').value = clampNum(params.get('comprasSN'), 0, 100, 15);
+        if (params.has('folha')) document.getElementById('folha').value = clampNum(params.get('folha'), 0, 100, 22);
+        if (params.has('conf')) document.getElementById('custoConformidade').value = clampNum(params.get('conf'), 0, 1000000, 800);
+      } catch (e) { console.warn('URL params ignorados:', e); }
     }
 
     function shareSimulation() {
@@ -2087,56 +2154,9 @@
       });
     }
 
-    /* ============================================================
-     * PROTEÇÃO CONTRA CÓPIA DO CÓDIGO DO SITE
-     * Mantém o conteúdo e textos 100% copiáveis pelo usuário
-     * ============================================================ */
-    (function initProtections() {
-      // 1. Bloqueia teclas de atalho de DevTools e visualização de código
-      window.addEventListener('keydown', function (e) {
-        // F12
-        if (e.key === 'F12') {
-          e.preventDefault();
-          showToast('A visualização das ferramentas de desenvolvedor está bloqueada.');
-          return false;
-        }
-
-        // Ctrl + Shift + I (Inspecionar), Ctrl + Shift + J (Console), Ctrl + Shift + C (Inspecionar Elemento)
-        if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
-          e.preventDefault();
-          showToast('Acesso ao código-fonte protegido.');
-          return false;
-        }
-
-        // Ctrl + U (Exibir código-fonte da página)
-        if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
-          e.preventDefault();
-          showToast('Acesso ao código-fonte protegido.');
-          return false;
-        }
-
-        // Ctrl + S (Salvar página como HTML)
-        if (e.ctrlKey && (e.key === 'S' || e.key === 's')) {
-          e.preventDefault();
-          showToast('O salvamento do código da página está desativado.');
-          return false;
-        }
-
-        // ATENÇÃO: Ctrl + C continua funcionando livremente para copiar texto selecionado!
-      }, false);
-
-      // 2. Proteção de Botão Direito (Context Menu):
-      window.addEventListener('contextmenu', function (e) {
-        const selection = window.getSelection().toString();
-        // Se estiver em um campo de formulário ou se houver texto selecionado, permite copiar
-        if (selection.trim().length > 0 || ['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) {
-          return true; // Permite copiar texto selecionado normalmente
-        }
-        e.preventDefault();
-        showToast('Conteúdo textual livre para cópia. Código-fonte protegido.');
-        return false;
-      }, false);
-    })();
+    /* Fix 8 — proteção client-side removida: bypass trivial via view-source/curl/DevTools.
+     * Mantém cópia livre (Ctrl+C, botão direito). Não cria falsa segurança. */
+    (function initProtections() { return; })();
 
     // Inicializar na carga da página
     document.addEventListener('DOMContentLoaded', () => {
