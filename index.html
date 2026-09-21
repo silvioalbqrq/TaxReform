@@ -879,12 +879,17 @@
 
     /* Print Styles (Parecer Técnico) */
     @media print {
+      @page { size: A4; margin: 10mm 8mm; }
       body {
         background: #fff !important;
         color: #000 !important;
         padding-bottom: 0;
+        font-size: 9pt;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
       }
-      header, .hero, .year-selector, .rate-editor-card, .accordion-toggle, .btn-header, #toast, .breakeven-bar-bg, .no-print {
+      header, .hero, .year-selector, .rate-editor-card, .accordion-toggle, .btn-header, #toast, .breakeven-bar-bg, .no-print,
+      #explainer-breakeven, #info-legal, #faq-card, footer {
         display: none !important;
       }
       .main-wrapper {
@@ -893,27 +898,51 @@
         padding: 0 !important;
       }
       .calc-grid {
-        grid-template-columns: 1fr !important;
-        gap: 10px !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 8px !important;
+        margin-bottom: 0 !important;
       }
       .card {
         box-shadow: none !important;
         border: 1px solid #ccc !important;
-        padding: 1rem !important;
+        padding: 0.6rem !important;
         page-break-inside: avoid;
+        break-inside: avoid;
+      }
+      .card-title { font-size: 0.9rem !important; margin-bottom: 0.5rem !important; padding-bottom: 0.4rem !important; }
+      .form-group { margin-bottom: 0.45rem !important; }
+      .form-label { font-size: 0.72rem !important; margin-bottom: 0.2rem !important; }
+      .form-control { padding: 0.3rem 0.5rem !important; font-size: 0.75rem !important; }
+      .input-group .form-control { padding-left: 2.2rem !important; }
+      .rbt12-box { padding: 0.4rem 0.6rem !important; font-size: 0.72rem !important; margin-top: 0.3rem !important; }
+      .year-note { font-size: 0.68rem !important; padding: 4px 8px !important; margin-bottom: 0.6rem !important; }
+      .verdict-box { padding: 0.6rem !important; margin-bottom: 0.6rem !important; }
+      .verdict-title { font-size: 0.95rem !important; }
+      .verdict-desc { font-size: 0.72rem !important; }
+      .breakeven-card { padding: 0.5rem !important; margin-bottom: 0.6rem !important; }
+      .breakeven-header { font-size: 0.72rem !important; }
+      .breakeven-sub { font-size: 0.68rem !important; }
+      .breakeven-help { font-size: 0.66rem !important; padding: 0.4rem 0.5rem !important; margin-top: 6px !important; line-height: 1.4 !important; }
+      .visual-bars { padding: 6px !important; margin-bottom: 0.6rem !important; gap: 6px !important; }
+      .bar-label { font-size: 0.66rem !important; }
+      .bar-track { height: 8px !important; }
+      .comparison-table { margin-bottom: 0.6rem !important; }
+      .comparison-table th, .comparison-table td {
+        padding: 0.3rem 0.4rem !important;
+        font-size: 0.7rem !important;
       }
       .print-header {
         display: block !important;
-        margin-bottom: 1.5rem;
+        margin-bottom: 0.6rem !important;
         border-bottom: 2px solid #0f172a;
-        padding-bottom: 0.5rem;
+        padding-bottom: 0.4rem !important;
       }
       .print-header h2 {
-        font-size: 1.4rem;
+        font-size: 1.05rem !important;
         color: #0f172a;
       }
       .print-header p {
-        font-size: 0.85rem;
+        font-size: 0.72rem !important;
         color: #555;
       }
     }
@@ -1320,7 +1349,7 @@
     </div>
 
     <!-- Entenda o Break-even B2B -->
-    <div class="card" style="margin-bottom: 2.5rem; border-left: 4px solid var(--emerald);">
+    <div class="card" id="explainer-breakeven" style="margin-bottom: 2.5rem; border-left: 4px solid var(--emerald);">
       <h2 class="card-title">
         <div class="card-title-left">
           <i class="fa-solid fa-circle-question" style="color:var(--emerald);"></i>
@@ -1349,7 +1378,7 @@
     </div>
 
     <!-- Informações Legais & Cronograma -->
-    <div class="info-section">
+    <div class="info-section" id="info-legal">
       
       <div class="info-card">
         <h3><i class="fa-solid fa-clock-rotate-left text-accent"></i> Cronograma da Reforma (EC 132/2023)</h3>
@@ -1395,7 +1424,7 @@
     </div>
 
     <!-- FAQ Accordion -->
-    <div class="card" style="margin-bottom: 2rem;">
+    <div class="card" id="faq-card" style="margin-bottom: 2rem;">
       <h2 class="card-title">
         <div class="card-title-left">
           <i class="fa-solid fa-circle-question"></i>
