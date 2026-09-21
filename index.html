@@ -879,35 +879,56 @@
 
     /* Print Styles (Parecer Técnico) */
     @media print {
-      @page { size: A4; margin: 10mm 8mm; }
-      body {
+      @page { size: A4; margin: 8mm 7mm; }
+      html, body {
         background: #fff !important;
         color: #000 !important;
-        padding-bottom: 0;
-        font-size: 9pt;
+        padding-bottom: 0 !important;
+        margin: 0 !important;
+        font-size: 8.5pt;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
       }
       header, .hero, .year-selector, .rate-editor-card, .accordion-toggle, .btn-header, #toast, .breakeven-bar-bg, .no-print,
-      #explainer-breakeven, #info-legal, #faq-card, footer {
+      #explainer-breakeven, #info-legal, #faq-card, footer, .toast {
         display: none !important;
       }
+      /* Economiza altura: sliders e ajuda didática não imprimem (valores % já aparecem nos labels) */
+      .range-wrap input[type="range"] { display: none !important; }
+      .range-wrap { display: block !important; }
+      .breakeven-help { display: none !important; }
       .main-wrapper {
-        margin-top: 0 !important;
+        margin: 0 !important;
         max-width: 100% !important;
         padding: 0 !important;
       }
+      .print-header {
+        display: block !important;
+        margin: 0 0 6px 0 !important;
+        border-bottom: 2px solid #0f172a;
+        padding-bottom: 4px !important;
+        break-after: avoid !important;
+        page-break-after: avoid !important;
+      }
       .calc-grid {
+        display: grid !important;
         grid-template-columns: 1fr 1fr !important;
         gap: 8px !important;
-        margin-bottom: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        break-before: avoid !important;
+        page-break-before: avoid !important;
       }
       .card {
         box-shadow: none !important;
         border: 1px solid #ccc !important;
-        padding: 0.6rem !important;
-        page-break-inside: avoid;
-        break-inside: avoid;
+        padding: 0.55rem !important;
+        /* Permite quebrar se precisar — evita empurrar tudo para a página 2 */
+        page-break-inside: auto !important;
+        break-inside: auto !important;
+        break-before: avoid !important;
+        page-break-before: avoid !important;
+        margin: 0 !important;
       }
       .card-title { font-size: 0.9rem !important; margin-bottom: 0.5rem !important; padding-bottom: 0.4rem !important; }
       .form-group { margin-bottom: 0.45rem !important; }
