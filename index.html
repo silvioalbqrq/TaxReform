@@ -9,50 +9,64 @@
   <!-- Google Fonts & Font Awesome -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Identidade visual TaxReform -->
+  <meta name="theme-color" content="#0b1f3a">
+  <link rel="icon" type="image/x-icon" href="favicon.ico?v=1">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg?v=2">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
 
   <style>
     :root {
       /* Tema corporativo Hub Fiscal */
-      --navy: #0f2a44;
-      --navy2: #1a3a5c;
-      --gold: #c9a227;
-      --gold-2: #a8861b;
-      --goldbg: #faf5e8;
-      --page-bg: #f4f2ec;
-      --ink: #1e2a38;
-      --muted: #5d6e80;
-      --border: #dce4ec;
-      --primary: #0f2a44;
-      --primary-light: #1a3a5c;
-      --accent: #0f2a44;
-      --accent-hover: #1a3a5c;
-      --emerald: #059669;
-      --emerald-bg: #ecfdf5;
-      --emerald-border: #a7f3d0;
-      --amber: #d97706;
-      --amber-bg: #fffbeb;
-      --amber-border: #fde68a;
-      --rose: #e11d48;
-      --rose-bg: #fff1f2;
-      --slate-50: #f4f2ec;
-      --slate-100: #f4f2ec;
-      --slate-200: #dce4ec;
-      --slate-300: #c3cfda;
-      --slate-600: #5d6e80;
+      --navy: #0b1f3a;
+      --navy2: #12325c;
+      --blue: #2563eb;
+      --blue-dark: #1d4ed8;
+      --blue-soft: #eaf1fe;
+      --emerald-light: #34d399;
+      --gold: #2563eb;
+      --gold-2: #1d4ed8;
+      --goldbg: #eaf1fe;
+      --page-bg: #e4ecf6;
+      --ink: #152033;
+      --muted: #5f6f85;
+      --border: #dfe7f1;
+      --primary: #0b1f3a;
+      --primary-light: #12325c;
+      --accent: #2563eb;
+      --accent-hover: #1d4ed8;
+      --emerald: #0f9f6e;
+      --emerald-bg: #e7f7f1;
+      --emerald-border: #a7e8d2;
+      --amber: #b54708;
+      --amber-bg: #fffaeb;
+      --amber-border: #f5d9a8;
+      --rose: #b42318;
+      --rose-bg: #fef3f2;
+      --slate-50: #f4f8fd;
+      --slate-100: #eaf1fe;
+      --slate-200: #dfe7f1;
+      --slate-300: #c6d2df;
+      --slate-600: #5f6f85;
       --slate-700: #3c4c5e;
-      --slate-800: #1a3a5c;
-      --slate-900: #1e2a38;
-      --card-shadow: 0 8px 24px rgba(15,42,68,.08);
-      --radius: 14px;
+      --slate-800: #12325c;
+      --slate-900: #152033;
+      --card-shadow: 0 1px 2px rgba(15, 37, 68, 0.04), 0 14px 34px -14px rgba(15, 37, 68, 0.16);
+      --radius: 16px;
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: Georgia, "Times New Roman", serif;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
       user-select: text; /* Mantém todo o conteúdo visível copiável pelo usuário */
       -webkit-user-select: text;
     }
@@ -63,27 +77,30 @@
     }
 
     body {
-      background-color: var(--slate-50);
+      background-color: #e4ecf6;
       color: var(--slate-900);
       line-height: 1.6;
-      padding-bottom: 60px;
+      padding-bottom: 0;
     }
 
     /* Top Navigation Bar */
     header {
-      background: var(--navy);
-      color: #fff;
-      padding: 0.85rem 1.5rem;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(10px);
+      color: var(--ink);
+      padding: 0;
       position: sticky;
       top: 0;
       z-index: 100;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      border-bottom: 3px solid var(--gold);
+      box-shadow: none;
+      border-bottom: 1px solid var(--border);
     }
 
     .nav-container {
       max-width: 1280px;
       margin: 0 auto;
+      padding: 8px 1.5rem;
+      min-height: 64px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -94,15 +111,53 @@
     .logo {
       display: flex;
       align-items: center;
-      gap: 10px;
-      font-weight: 700;
-      font-size: 1.15rem;
-      font-family: Georgia, "Times New Roman", serif;
+      gap: 11px;
+      font-weight: 800;
+      font-size: 1rem;
+      font-family: var(--font);
       color: var(--navy);
-      background: var(--gold);
+      background: transparent;
       text-decoration: none;
-      padding: 4px 12px;
-      border-radius: 8px;
+      padding: 0;
+      border-radius: 0;
+      line-height: 1.15;
+    }
+
+    .logo .logo-mark {
+      width: 36px;
+      height: 36px;
+      flex: none;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 6px 14px -6px rgba(11, 31, 58, 0.6);
+    }
+
+    .logo .logo-mark img {
+      width: 36px;
+      height: 36px;
+      display: block;
+      border-radius: 10px;
+    }
+
+    .logo .logo-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .logo .logo-text strong {
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--navy);
+    }
+
+    .logo .logo-text small {
+      font-size: 0.66rem;
+      font-weight: 500;
+      color: var(--muted);
+      margin-top: 2px;
     }
 
     .logo i {
@@ -114,26 +169,29 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      flex-wrap: wrap;
     }
 
     .btn-header {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: #fff;
-      padding: 6px 14px;
-      border-radius: 6px;
+      background: #fff;
+      border: 1.5px solid var(--border);
+      color: var(--navy);
+      padding: 8px 14px;
+      border-radius: 10px;
       font-size: 0.82rem;
-      font-weight: 500;
+      font-weight: 700;
+      font-family: var(--font);
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      transition: all 0.2s;
+      transition: border-color 0.18s, color 0.18s, background 0.18s;
     }
 
     .btn-header:hover {
-      background: rgba(255, 255, 255, 0.2);
-      border-color: rgba(255, 255, 255, 0.35);
+      background: #fff;
+      border-color: var(--accent);
+      color: var(--accent);
     }
 
     a.btn-header {
@@ -142,62 +200,117 @@
 
     .header-actions a.btn-header:hover {
       background: #fff;
-      border-color: #fff;
-      color: var(--navy);
+      border-color: var(--accent);
+      color: var(--accent);
     }
 
     .badge-legal {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      padding: 4px 10px;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      color: #cbd5e1;
+      background: var(--slate-100);
+      border: 1px solid var(--border);
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      color: var(--muted);
     }
 
     /* Hero Section */
     .hero {
-      background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 100%);
+      position: relative;
+      overflow: hidden;
       color: #fff;
-      padding: 2.5rem 1.5rem 3.5rem;
-      text-align: center;
-      border-bottom: 4px solid var(--gold);
+      padding: 2.75rem 1.5rem 4.5rem;
+      text-align: left;
+      border-bottom: 0;
+      border-radius: 0 0 26px 26px;
+      background:
+        radial-gradient(900px 420px at 82% -10%, rgba(52, 211, 153, 0.20), transparent 62%),
+        radial-gradient(700px 380px at 8% 4%, rgba(37, 99, 235, 0.38), transparent 66%),
+        linear-gradient(135deg, #0a1c35 0%, #102c50 52%, #123a6b 100%);
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+      background-size: 46px 46px;
+      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), transparent 78%);
     }
 
     .hero-container {
-      max-width: 960px;
+      position: relative;
+      z-index: 1;
+      max-width: 1120px;
       margin: 0 auto;
     }
 
+    .hero .eyebrow {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--emerald-light);
+      margin: 0 0 10px;
+    }
+
     .hero h1 {
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 2.1rem;
+      font-family: var(--font);
+      font-size: clamp(26px, 3.4vw, 36px);
+      line-height: 1.12;
       font-weight: 800;
-      margin-bottom: 0.75rem;
-      letter-spacing: -0.02em;
+      margin-bottom: 0.7rem;
+      letter-spacing: -0.03em;
+    }
+
+    .hero h1 .hl {
+      color: #a7f3d0;
     }
 
     .hero p {
-      font-size: 1.05rem;
-      color: #94a3b8;
-      margin-bottom: 1.25rem;
+      font-size: 0.96rem;
+      color: rgba(255, 255, 255, 0.78);
+      margin-bottom: 0;
       max-width: 820px;
-      margin-left: auto;
-      margin-right: auto;
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    .hero .selos {
+      margin-top: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .hero .selos span {
+      font-size: 12px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      background: rgba(255, 255, 255, 0.07);
+      color: #e8eef5;
     }
 
     .legal-alert {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: rgba(217, 119, 6, 0.15);
-      border: 1px solid rgba(217, 119, 6, 0.4);
-      color: #fcd34d;
-      padding: 8px 16px;
-      border-radius: 8px;
-      font-size: 0.88rem;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      color: #e8eef5;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 0.84rem;
       font-weight: 500;
       text-align: left;
+      margin-top: 18px;
+    }
+
+    .legal-alert i {
+      color: #a7f3d0;
     }
 
     /* Layout Wrapper */
@@ -205,6 +318,8 @@
       max-width: 1280px;
       margin: -2.5rem auto 0;
       padding: 0 1.5rem;
+      position: relative;
+      z-index: 2;
     }
 
     /* Grid do Simulador */
@@ -213,6 +328,10 @@
       grid-template-columns: 1.05fr 1fr;
       gap: 1.75rem;
       margin-bottom: 2.5rem;
+    }
+
+    .calc-grid > * {
+      min-width: 0;
     }
 
     @media (max-width: 1024px) {
@@ -226,28 +345,29 @@
       border-radius: var(--radius);
       box-shadow: var(--card-shadow);
       padding: 1.75rem;
-      border: 1px solid var(--slate-200);
-      border-top: 3px solid var(--gold);
+      border: 1px solid var(--border);
+      border-top: 1px solid var(--border);
     }
 
     .card-title {
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 1.2rem;
-      font-weight: 700;
+      font-family: var(--font);
+      font-size: 1.12rem;
+      font-weight: 800;
       color: var(--navy);
       margin-bottom: 1.25rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 2px solid var(--slate-100);
-      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.85rem;
+      letter-spacing: -0.01em;
     }
 
     .card-title-left {
       display: flex;
       align-items: center;
       gap: 10px;
-      border-left: 4px solid var(--gold);
+      border-left: 3px solid var(--accent);
       padding-left: 10px;
     }
 
@@ -797,7 +917,7 @@
     }
 
     .info-card h3 {
-      font-family: Georgia, "Times New Roman", serif;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
       font-size: 1.05rem;
       color: var(--navy);
       margin-bottom: 0.75rem;
@@ -925,6 +1045,342 @@
       pointer-events: auto;
     }
 
+    /* ============================================================
+       Ajustes finos do tema Hub Fiscal
+       ============================================================ */
+    .year-selector {
+      background: var(--slate-100);
+      border-radius: 10px;
+    }
+
+    .year-btn {
+      border-radius: 8px;
+      color: var(--muted);
+    }
+
+    .year-btn.active {
+      background: #fff;
+      color: var(--accent);
+      box-shadow: 0 1px 3px rgba(15, 37, 68, 0.12);
+    }
+
+    .year-note {
+      background: var(--blue-soft);
+      border-left: 3px solid var(--accent);
+      border-radius: 8px;
+      color: var(--navy);
+      font-size: 0.8rem;
+    }
+
+    .rate-editor-card {
+      background: var(--slate-50);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    .rate-editor-title {
+      color: var(--navy);
+    }
+
+    .iva-total-badge {
+      background: var(--blue-soft);
+      border: 1px solid #c7d9fb;
+      color: var(--blue-dark);
+    }
+
+    .rate-input-box {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .rate-field-wrap input[type="number"] {
+      border: 1px solid var(--slate-300);
+      border-radius: 8px;
+      color: var(--navy);
+    }
+
+    .rate-field-wrap input[type="range"],
+    .range-wrap input[type="range"] {
+      accent-color: var(--accent);
+    }
+
+    .chip-btn {
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--slate-700);
+      font-weight: 600;
+    }
+
+    .chip-btn:hover {
+      background: var(--blue-soft);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .chip-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .form-label {
+      color: var(--navy);
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+
+    .form-label span.subtext {
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .form-control {
+      border: 1px solid var(--slate-300);
+      border-radius: 10px;
+      background-color: #fff;
+      color: var(--ink);
+    }
+
+    .form-control:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
+
+    .rbt12-box {
+      background: var(--slate-50);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .rbt12-badge {
+      background: var(--blue-soft);
+      color: var(--blue-dark);
+    }
+
+    .accordion-toggle {
+      background: var(--slate-50);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--navy);
+      font-weight: 700;
+    }
+
+    .accordion-toggle:hover {
+      background: var(--slate-100);
+    }
+
+    .verdict-box {
+      border-radius: 12px;
+    }
+
+    .verdict-box.das {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      color: #1e40af;
+    }
+
+    .verdict-box.hibrido {
+      background: var(--emerald-bg);
+      border: 1px solid var(--emerald-border);
+      color: #067a54;
+    }
+
+    .verdict-box.apertado {
+      background: var(--amber-bg);
+      border: 1px solid var(--amber-border);
+      color: #93370d;
+    }
+
+    .verdict-badge {
+      background: rgba(255, 255, 255, 0.75);
+    }
+
+    .breakeven-card,
+    .visual-bars,
+    .explainer-step {
+      background: var(--slate-50);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .breakeven-help {
+      background: var(--blue-soft);
+      border: 1px solid #c7d9fb;
+      border-radius: 10px;
+      color: var(--ink);
+    }
+
+    .breakeven-help strong {
+      color: var(--navy);
+    }
+
+    .breakeven-help code {
+      background: #fff;
+      border: 1px solid var(--border);
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .comparison-table th {
+      background-color: var(--slate-50);
+      color: var(--muted);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .comparison-table tr.highlight-row {
+      background-color: #f7fbff;
+    }
+
+    .disclaimer-box {
+      background: var(--amber-bg);
+      border: 1px solid var(--amber-border);
+      border-radius: 10px;
+      color: #93370d;
+    }
+
+    .timeline-dot {
+      background: var(--blue-soft);
+      color: var(--accent);
+    }
+
+    .timeline-dot.active {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .info-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--card-shadow);
+    }
+
+    .info-card h3 {
+      font-family: var(--font);
+      letter-spacing: -0.01em;
+      border-left: 3px solid var(--emerald);
+    }
+
+    .faq-item {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .faq-q {
+      color: var(--navy);
+      font-weight: 700;
+    }
+
+    .faq-q:hover {
+      background: var(--slate-50);
+      color: var(--accent);
+    }
+
+    /* Rodapé padrão Hub Fiscal */
+    .footer {
+      background: var(--navy);
+      color: rgba(255, 255, 255, 0.7);
+      margin-top: 44px;
+      border-top: 0;
+      padding-top: 6px;
+      font-size: 13px;
+    }
+
+    .footer strong {
+      color: #fff;
+    }
+
+    .footer strong.ft {
+      font-family: var(--font);
+      font-size: 0.95rem;
+      font-weight: 800;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .footer p {
+      margin: 4px 0;
+      line-height: 1.6;
+    }
+
+    .footer .donate-code {
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+      border-radius: 6px;
+      font-size: 11.5px;
+    }
+
+    .footer .reveal-link {
+      color: #a7f3d0;
+    }
+
+    .contact-icons a {
+      width: 38px;
+      height: 38px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      color: #fff;
+      transition: background 0.18s, border-color 0.18s;
+    }
+
+    .contact-icons a:hover {
+      background: var(--emerald);
+      border-color: var(--emerald);
+      color: #fff;
+    }
+
+    .contact-icons svg {
+      width: 19px;
+      height: 19px;
+    }
+
+    .btn-outline-l {
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 8px;
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .btn-outline-l:hover {
+      background: #fff;
+      color: var(--navy);
+    }
+
+    .footer-base {
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .footer-base small,
+    .footer small {
+      color: rgba(255, 255, 255, 0.55);
+    }
+
+    .toast {
+      background: var(--navy);
+      border-radius: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        text-align: left;
+        padding: 2rem 1.25rem 3.5rem;
+      }
+
+      .nav-container {
+        padding: 8px 1.25rem;
+      }
+
+      .main-wrapper {
+        padding: 0 1.25rem;
+      }
+    }
+
     /* Print Styles (Parecer Técnico) */
     @media print {
       @page { size: A4; margin: 8mm 7mm; }
@@ -1032,9 +1488,12 @@
   <!-- Top Navigation -->
   <header class="no-print">
     <div class="nav-container">
-      <a href="#" class="logo">
-        <i class="fa-solid fa-calculator"></i>
-        <span>TaxReform | IBS/CBS Simples Nacional Pro</span>
+      <a href="#" class="logo" aria-label="TaxReform — IBS/CBS Simples Nacional Pro">
+        <span class="logo-mark" aria-hidden="true"><img src="logo.svg" alt="" width="36" height="36"></span>
+        <span class="logo-text">
+          <strong>TaxReform</strong>
+          <small>IBS/CBS · Simples Nacional Pro</small>
+        </span>
       </a>
       <div class="header-actions">
         <span class="badge-legal"><i class="fa-solid fa-scale-balanced"></i> LC 123/06 • LC 214/25 • EC 132/23 • CGSN 186/26</span>
@@ -1057,8 +1516,15 @@
   <!-- Hero Section -->
   <section class="hero no-print">
     <div class="hero-container">
-      <h1>IBS e CBS dentro ou fora do DAS?</h1>
+      <p class="eyebrow">Reforma Tributária · Simples Nacional · LC 123/2006 · LC 214/2025</p>
+      <h1>IBS e CBS <span class="hl">dentro ou fora</span> do DAS?</h1>
       <p>Simulador técnico de decisão tributária: cálculo oficial por RBT12 (LC 123/2006), cronograma da transição (EC 132/2023 + LC 214/2025), alíquotas de CBS e IBS editáveis e parecer técnico contábil.</p>
+      <div class="selos">
+        <span>LC 123/2006</span>
+        <span>EC 132/2023</span>
+        <span>LC 214/2025</span>
+        <span>CGSN 186/2026</span>
+      </div>
       <div class="legal-alert">
         <i class="fa-solid fa-calendar-check"></i>
         <span><strong>Janela de Opção CGSN (Res. 186/2026):</strong> De 01 a 30 de setembro de 2026 para vigência no 1º semestre de 2027 (jan-jun/2027). Nova janela em março/2027 para o 2º semestre. Quem não optar permanece no DAS.</span>
@@ -1631,7 +2097,7 @@
         </div>
       </div>
       <div>
-        <strong class="ft">Doações</strong>
+        <strong class="ft">Apoio</strong>
         <p>Pix: <code class="donate-code" id="pix-chave" data-full="8eea81fc-cb40-4150-91fa-6ca829ada37f" title="8eea81fc-cb40-4150-91fa-6ca829ada37f">8eea81fc…da37f</code> <button class="btn-outline-l" data-copy="pix-chave" type="button">Copiar</button><br><small><a href="#" data-reveal="pix-chave" class="reveal-link">ver chave completa</a></small></p>
         <p>Lightning: <code class="donate-code" id="ln-address" data-full="lnbc1p4tt3ccpp5fntekr0ya4r4zd6durklrznte0zsg5jv3zcv83sss4u4efd8d7gsdqqcqzzsxqrrsssp5xg8m0ydtzqprnym2ruqp4260au726czc86p5y2mpl575mp8avdcs9qxpqysgqsjawffjrlkwpa77wf9zvsjx99z833h0dvjqjh0nxqph75rrkghrhzrfwdhj0fqt57l0nwl69c2sgutmm40mgzhkmqy9dpzcje69u09qpaewhvg" title="Invoice única — clique em copiar">lnbc1p4…paewhvg (invoice única)</code> <button class="btn-outline-l" data-copy="ln-address" type="button">Copiar</button><br><small><a href="#" data-reveal="ln-address" class="reveal-link">ver invoice completa</a></small></p>
       </div>
@@ -2074,7 +2540,7 @@
       const breakevenFill = document.getElementById('breakevenFill');
       const breakevenTarget = document.getElementById('breakevenTarget');
       const b2bAtualText = document.getElementById('b2bAtualText');
-      b2bAtualText.innerText = Math.round(pctB2B * 100) + '%';
+      if (b2bAtualText) b2bAtualText.innerText = Math.round(pctB2B * 100) + '%';
 
       // Preenche explicação didática com números reais da simulação (mantém paleta)
       const setText = (id, txt) => { const el = document.getElementById(id); if (el) el.innerText = txt; };

@@ -1,0 +1,16 @@
+{
+  "name": "TaxReform — IBS/CBS dentro ou fora do DAS",
+  "short_name": "TaxReform",
+  "description": "Simulador do Simples Nacional na Reforma Tributária: IBS e CBS dentro ou fora do DAS.",
+  "start_url": "/TaxReform/",
+  "scope": "/TaxReform/",
+  "display": "standalone",
+  "background_color": "#0b1f3a",
+  "theme_color": "#0b1f3a",
+  "orientation": "portrait",
+  "icons": [
+    { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml" },
+    { "src": "android-chrome-192x192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "android-chrome-512x512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

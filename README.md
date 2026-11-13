@@ -2,6 +2,8 @@
 
 Simulador técnico e estratégico para tomada de decisão no Simples Nacional frente à Reforma Tributária sobre o Consumo (**Emenda Constitucional nº 132/2023**, **Lei Complementar nº 123/2006**, **PLP 68/2024** e **Resolução CGSN nº 186/2026**).
 
+> Visual padrão Hub Fiscal (navy, azul e esmeralda), fonte Plus Jakarta Sans, com logotipo e favicon próprios.
+
 ---
 
 ## 🎯 Principais Funcionalidades
@@ -54,8 +56,7 @@ Para atualizar o seu site no GitHub Pages (`silvioalbqrq/TaxReform`):
    git clone https://github.com/silvioalbqrq/TaxReform.git
    cd TaxReform
    ```
-2. Substitua o arquivo `index.html` pelo novo arquivo gerado em:
-   `taxreform-simples-nacional/index.html`
+2. Substitua o `index.html` e envie os arquivos de identidade visual: `favicon.svg`, `favicon.ico`, `favicon-16x16.png`, `favicon-32x32.png`, `favicon-48x48.png`, `apple-touch-icon.png`, `android-chrome-192x192.png`, `android-chrome-512x512.png`, `logo.svg`, `logo-text.svg`, `logo-white.svg` e `site.webmanifest`.
 3. Faça o commit e o push para o GitHub:
    ```bash
    git add index.html README.md
